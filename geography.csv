@@ -1,0 +1,198 @@
+name,geo,four_regions,eight_regions,six_regions,members_oecd_g77,Latitude,Longitude,UN member since,World bank region,"World bank, 4 income groups 2017",adjective,adjective_plural
+Afghanistan,afg,asia,asia_west,south_asia,g77,33,66,19/11/1946,South Asia,Low income,Afghan,Afghans
+Albania,alb,europe,europe_east,europe_central_asia,others,41,20,14/12/1955,Europe & Central Asia,Upper middle income,Albanian,Albanians
+Algeria,dza,africa,africa_north,middle_east_north_africa,g77,28,3,8/10/1962,Middle East & North Africa,Upper middle income,Algerian,Algerians
+Andorra,and,europe,europe_west,europe_central_asia,others,42.50779,1.52109,28/7/1993,Europe & Central Asia,High income,Andorran,Andorrans
+Angola,ago,africa,africa_sub_saharan,sub_saharan_africa,g77,-12.5,18.5,1/12/1976,Sub-Saharan Africa,Lower middle income,Angolan,Angolans
+Antigua and Barbuda,atg,americas,america_north,america,g77,17.05,-61.8,11/11/1981,Latin America & Caribbean,High income,"Antiguan, Barbudan","Antiguans, Barbudans"
+Argentina,arg,americas,america_south,america,g77,-34,-64,24/10/1945,Latin America & Caribbean,Upper middle income,"Argentine, Argentinian","Argentines, Argentinians"
+Armenia,arm,europe,europe_east,europe_central_asia,others,40.25,45,2/3/1992,Europe & Central Asia,Lower middle income,Armenian,Armenians
+Australia,aus,asia,east_asia_pacific,east_asia_pacific,oecd,-25,135,1/11/1945,East Asia & Pacific,High income,Australian,Australians
+Austria,aut,europe,europe_west,europe_central_asia,oecd,47.33333,13.33333,14/12/1955,Europe & Central Asia,High income,Austrian,Austrians
+Azerbaijan,aze,europe,europe_east,europe_central_asia,others,40.5,47.5,2/3/1992,Europe & Central Asia,Upper middle income,"Azerbaijani, Azeri","Azerbaijanis, Azeris"
+Bahamas,bhs,americas,america_north,america,g77,25.04082,-77.37122,18/8/1973,Latin America & Caribbean,High income,Bahamian,Bahamians
+Bahrain,bhr,asia,asia_west,middle_east_north_africa,g77,26.03333,50.55,21/9/1971,Middle East & North Africa,High income,Bahraini,Bahrainis
+Bangladesh,bgd,asia,asia_west,south_asia,g77,24,90,17/9/1974,South Asia,Lower middle income,Bangladeshi,Bangladeshis
+Barbados,brb,americas,america_north,america,g77,13.16667,-59.53333,9/12/1966,Latin America & Caribbean,High income,Barbadian,Barbadians
+Belarus,blr,europe,europe_east,europe_central_asia,others,53,28,24/10/1945,Europe & Central Asia,Upper middle income,Belarusian,Belarusians
+Belgium,bel,europe,europe_west,europe_central_asia,oecd,50.75,4.5,27/12/1945,Europe & Central Asia,High income,Belgian,Belgians
+Belize,blz,americas,america_north,america,g77,17.49952,-88.19756,25/9/1981,Latin America & Caribbean,Upper middle income,Belizean,Belizeans
+Benin,ben,africa,africa_sub_saharan,sub_saharan_africa,g77,9.5,2.25,20/9/1960,Sub-Saharan Africa,Low income,"Beninese, Beninois","Beninese, Beninois"
+Bhutan,btn,asia,asia_west,south_asia,g77,27.5,90.5,21/9/1971,South Asia,Lower middle income,Bhutanese,Bhutanese
+Bolivia,bol,americas,america_south,america,g77,-17,-65,14/11/1945,Latin America & Caribbean,Lower middle income,Bolivian,Bolivians
+Bosnia and Herzegovina,bih,europe,europe_east,europe_central_asia,g77,44.25,17.83333,22/5/1992,Europe & Central Asia,Upper middle income,"Bosnian, Herzegovinian","Bosnian, Herzegovinians"
+Botswana,bwa,africa,africa_sub_saharan,sub_saharan_africa,g77,-22,24,17/10/1966,Sub-Saharan Africa,Upper middle income,"Motswana, Botswanan","Batswana (singular Motswana), Botswanans"
+Brazil,bra,americas,america_south,america,g77,-10,-55,24/10/1945,Latin America & Caribbean,Upper middle income,Brazilian,Brazilians
+Brunei,brn,asia,east_asia_pacific,east_asia_pacific,g77,4.5,114.66667,21/9/1984,East Asia & Pacific,High income,Bruneian,Bruneians
+Bulgaria,bgr,europe,europe_east,europe_central_asia,others,42.66667,25.25,14/12/1955,Europe & Central Asia,Upper middle income,Bulgarian,Bulgarians
+Burkina Faso,bfa,africa,africa_sub_saharan,sub_saharan_africa,g77,12.5,-1.66667,20/9/1960,Sub-Saharan Africa,Low income,Burkinabé,Burkinabè/Burkinabé
+Burundi,bdi,africa,africa_sub_saharan,sub_saharan_africa,g77,-3.5,30,18/9/1962,Sub-Saharan Africa,Low income,Burundian,"Burundians, Barundi"
+Cambodia,khm,asia,east_asia_pacific,east_asia_pacific,g77,13,105,14/12/1955,East Asia & Pacific,Lower middle income,Cambodian,Cambodians
+Cameroon,cmr,africa,africa_sub_saharan,sub_saharan_africa,g77,6,12.5,20/9/1960,Sub-Saharan Africa,Lower middle income,Cameroonian,Cameroonians
+Canada,can,americas,america_north,america,oecd,60.10867,-113.64258,9/11/1945,North America,High income,Canadian,Canadians
+Cape Verde,cpv,africa,africa_sub_saharan,sub_saharan_africa,g77,16,-24,16/9/1975,Sub-Saharan Africa,Lower middle income,Cape Verdian,Cape Verdians
+Central African Republic,caf,africa,africa_sub_saharan,sub_saharan_africa,g77,7,21,20/9/1960,Sub-Saharan Africa,Low income,Central African,Central Africans
+Chad,tcd,africa,africa_sub_saharan,sub_saharan_africa,g77,15,19,20/9/1960,Sub-Saharan Africa,Low income,Chadian,Chadians
+Chile,chl,americas,america_south,america,g77,-33.45694,-70.64827,24/10/1945,Latin America & Caribbean,High income,Chilean,Chileans
+China,chn,asia,east_asia_pacific,east_asia_pacific,g77,35,105,24/10/1945,East Asia & Pacific,Upper middle income,Chinese,Chinese
+Colombia,col,americas,america_south,america,g77,4,-73.25,5/11/1945,Latin America & Caribbean,Upper middle income,Colombian,Colombians
+Comoros,com,africa,africa_sub_saharan,sub_saharan_africa,g77,-12.23333,44.44553,12/11/1975,Sub-Saharan Africa,Low income,"Comoran, Comorian","Comorans, Comorians"
+"Congo, Dem. Rep.",cod,africa,africa_sub_saharan,sub_saharan_africa,g77,-2.5,23.5,20/9/1960,Sub-Saharan Africa,Low income,Congolese,Congolese
+"Congo, Rep.",cog,africa,africa_sub_saharan,sub_saharan_africa,g77,-1,15.5,20/9/1960,Sub-Saharan Africa,Lower middle income,Congolese,Congolese
+Costa Rica,cri,americas,america_north,america,g77,10,-84,2/11/1945,Latin America & Caribbean,Upper middle income,Costa Rican,Costa Ricans
+Cote d'Ivoire,civ,africa,africa_sub_saharan,sub_saharan_africa,g77,8,-5.5,20/9/1960,Sub-Saharan Africa,Lower middle income,Ivorian,Ivorians
+Croatia,hrv,europe,europe_east,europe_central_asia,others,45.16667,15.5,22/5/1992,Europe & Central Asia,Upper middle income,Croatian,"Croatians, Croats"
+Cuba,cub,americas,america_north,america,g77,22,-79.5,24/10/1945,Latin America & Caribbean,Upper middle income,Cuban,Cubans
+Cyprus,cyp,europe,europe_west,europe_central_asia,others,35,33,20/9/1960,Europe & Central Asia,High income,Cypriot,Cypriots
+Czech Republic,cze,europe,europe_east,europe_central_asia,oecd,49.75,15,19/1/1993,Europe & Central Asia,High income,Czech,Czechs
+Denmark,dnk,europe,europe_west,europe_central_asia,oecd,56,10,24/10/1945,Europe & Central Asia,High income,Danish,Danes
+Djibouti,dji,africa,africa_north,middle_east_north_africa,g77,11.58901,43.14503,20/9/1977,Middle East & North Africa,Lower middle income,Djiboutian,Djiboutians
+Dominica,dma,americas,america_north,america,g77,15.5,-61.33333,18/12/1978,Latin America & Caribbean,Upper middle income,Dominican,Dominicans
+Dominican Republic,dom,americas,america_north,america,g77,19,-70.66667,24/10/1945,Latin America & Caribbean,Upper middle income,Dominican,Dominicans
+Ecuador,ecu,americas,america_south,america,g77,-1.25,-78.25,21/12/1945,Latin America & Caribbean,Upper middle income,Ecuadorian,Ecuadorians
+Egypt,egy,africa,africa_north,middle_east_north_africa,g77,27,30,24/10/1945,Middle East & North Africa,Lower middle income,Egyptian,Egyptians
+El Salvador,slv,americas,america_north,america,g77,13.83333,-88.91667,24/10/1945,Latin America & Caribbean,Lower middle income,Salvadoran,Salvadorans
+Equatorial Guinea,gnq,africa,africa_sub_saharan,sub_saharan_africa,g77,1.7,10.5,12/11/1968,Sub-Saharan Africa,Upper middle income,"Equatorial Guinean, Equatoguinean","Equatorial Guineans, Equatoguineans"
+Eritrea,eri,africa,africa_sub_saharan,sub_saharan_africa,g77,15,39,28/5/1993,Sub-Saharan Africa,Low income,Eritrean,Eritreans
+Estonia,est,europe,europe_east,europe_central_asia,others,59,26,17/9/1991,Europe & Central Asia,High income,Estonian,Estonians
+Ethiopia,eth,africa,africa_sub_saharan,sub_saharan_africa,g77,9,39.5,13/11/1945,Sub-Saharan Africa,Low income,Ethiopian,"Ethiopians, Habesha"
+Fiji,fji,asia,east_asia_pacific,east_asia_pacific,g77,-18,178,13/10/1970,East Asia & Pacific,Upper middle income,Fijian,Fijians
+Finland,fin,europe,europe_east,europe_central_asia,oecd,64,26,14/12/1955,Europe & Central Asia,High income,Finnish,Finns
+France,fra,europe,europe_west,europe_central_asia,oecd,46,2,24/10/1945,Europe & Central Asia,High income,French,"French, Frenchmen/Frenchwomen"
+Gabon,gab,africa,africa_sub_saharan,sub_saharan_africa,g77,-1,11.75,20/9/1960,Sub-Saharan Africa,Upper middle income,Gabonese,"Gabonese, Gabonaise"
+Gambia,gmb,africa,africa_sub_saharan,sub_saharan_africa,g77,13.5,-15.5,21/9/1965,Sub-Saharan Africa,Low income,Gambian,Gambians
+Georgia,geo,europe,europe_east,europe_central_asia,others,41.99998,43.4999,31/7/1992,Europe & Central Asia,Lower middle income,Georgian,Georgians
+Germany,deu,europe,europe_west,europe_central_asia,oecd,51.5,10.5,18/9/1973,Europe & Central Asia,High income,German,Germans
+Ghana,gha,africa,africa_sub_saharan,sub_saharan_africa,g77,8.1,-1.2,8/3/1957,Sub-Saharan Africa,Lower middle income,Ghanaian,Ghanaians
+Greece,grc,europe,europe_west,europe_central_asia,oecd,39,22,25/10/1945,Europe & Central Asia,High income,"Greek, Hellenic","Greeks, Hellenes"
+Grenada,grd,americas,america_north,america,g77,12.11667,-61.66667,17/9/1974,Latin America & Caribbean,Upper middle income,Grenadian,Grenadians
+Guatemala,gtm,americas,america_north,america,g77,14.64072,-90.51327,21/11/1945,Latin America & Caribbean,Lower middle income,Guatemalan,Guatemalans
+Guinea,gin,africa,africa_sub_saharan,sub_saharan_africa,g77,10.83333,-10.66667,12/12/1958,Sub-Saharan Africa,Low income,Guinean,Guineans
+Guinea-Bissau,gnb,africa,africa_sub_saharan,sub_saharan_africa,g77,12,-15,17/9/1974,Sub-Saharan Africa,Low income,Bissau-Guinean,Bissau-Guineans
+Guyana,guy,americas,america_south,america,g77,5,-59,20/9/1966,Latin America & Caribbean,Upper middle income,Guyanese,Guyanese
+Haiti,hti,americas,america_north,america,g77,19,-72.41667,24/10/1945,Latin America & Caribbean,Low income,Haitian,Haitians
+Holy See,hos,europe,europe_west,europe_central_asia,others,41.90236,12.45332,,,,Vatican,Vatican
+Honduras,hnd,americas,america_north,america,g77,15,-86.5,17/12/1945,Latin America & Caribbean,Lower middle income,Honduran,Hondurans
+"Hong Kong, China",hkg,asia,east_asia_pacific,east_asia_pacific,others,22.28552,114.15769,,East Asia & Pacific,High income,"Hong Kong, Cantonese, Hong Konger","Hongkongers, Hong Kongese"
+Hungary,hun,europe,europe_east,europe_central_asia,oecd,47,20,14/12/1955,Europe & Central Asia,High income,"Hungarian, Magyar","Hungarians, Magyars"
+Iceland,isl,europe,europe_west,europe_central_asia,oecd,65,-18,19/11/1946,Europe & Central Asia,High income,Icelandic,Icelanders
+India,ind,asia,asia_west,south_asia,g77,22,79,30/10/1945,South Asia,Lower middle income,Indian,Indians
+Indonesia,idn,asia,east_asia_pacific,east_asia_pacific,g77,-5,120,28/9/1950,East Asia & Pacific,Lower middle income,Indonesian,Indonesians
+Iran,irn,asia,asia_west,middle_east_north_africa,g77,32,53,24/10/1945,Middle East & North Africa,Upper middle income,Iranian,Iranians
+Iraq,irq,asia,asia_west,middle_east_north_africa,g77,33,44,21/12/1945,Middle East & North Africa,Upper middle income,Iraqi,Iraqis
+Ireland,irl,europe,europe_west,europe_central_asia,oecd,53,-8,14/12/1955,Europe & Central Asia,High income,Irish,"Irish, Irishmen/Irishwomen"
+Israel,isr,asia,asia_west,middle_east_north_africa,others,31.5,34.75,11/5/1949,Middle East & North Africa,High income,"Israeli, Israelite",Israelis
+Italy,ita,europe,europe_west,europe_central_asia,oecd,42.83333,12.83333,14/12/1955,Europe & Central Asia,High income,Italian,Italians
+Jamaica,jam,americas,america_north,america,g77,18.16667,-77.25,18/9/1962,Latin America & Caribbean,Upper middle income,Jamaican,Jamaicans
+Japan,jpn,asia,east_asia_pacific,east_asia_pacific,oecd,35.68536,139.75309,18/12/1956,East Asia & Pacific,High income,Japanese,Japanese
+Jordan,jor,asia,asia_west,middle_east_north_africa,g77,31,36,14/12/1955,Middle East & North Africa,Lower middle income,Jordanian,Jordanians
+Kazakhstan,kaz,asia,asia_west,europe_central_asia,others,48,68,2/3/1992,Europe & Central Asia,Upper middle income,"Kazakhstani, Kazakh","Kazakhstanis, Kazakhs"
+Kenya,ken,africa,africa_sub_saharan,sub_saharan_africa,g77,1,38,16/12/1963,Sub-Saharan Africa,Lower middle income,Kenyan,Kenyans
+Kiribati,kir,asia,east_asia_pacific,east_asia_pacific,others,1.421,172.984,14/9/1999,East Asia & Pacific,Lower middle income,I-Kiribati,I-Kiribati
+North Korea,prk,asia,east_asia_pacific,east_asia_pacific,g77,40,127,17/9/1991,East Asia & Pacific,Low income,North Korean,North Koreans
+South Korea,kor,asia,east_asia_pacific,east_asia_pacific,oecd,36.5,127.75,17/9/1991,East Asia & Pacific,High income,South Korean,South Koreans
+Kuwait,kwt,asia,asia_west,middle_east_north_africa,g77,29.36972,47.97833,14/5/1963,Middle East & North Africa,High income,Kuwaiti,Kuwaitis
+Kyrgyz Republic,kgz,asia,asia_west,europe_central_asia,others,41.5,75,2/3/1992,Europe & Central Asia,Lower middle income,"Kyrgyzstani, Kyrgyz, Kirgiz, Kirghiz","Kyrgyzstanis, Kyrgyz, Kirgiz, Kirghiz"
+Lao,lao,asia,east_asia_pacific,east_asia_pacific,g77,18,105,14/12/1955,East Asia & Pacific,Lower middle income,"Lao, Laotian","Laos, Laotians"
+Latvia,lva,europe,europe_east,europe_central_asia,others,57,25,17/9/1991,Europe & Central Asia,High income,"Latvian, Lettish","Latvians, Letts"
+Lebanon,lbn,asia,asia_west,middle_east_north_africa,g77,33.83333,35.83333,24/10/1945,Middle East & North Africa,Upper middle income,Lebanese,Lebanese
+Lesotho,lso,africa,africa_sub_saharan,sub_saharan_africa,g77,-29.5,28.25,17/10/1966,Sub-Saharan Africa,Lower middle income,Basotho,Basotho (singular Mosotho)
+Liberia,lbr,africa,africa_sub_saharan,sub_saharan_africa,g77,6.5,-9.5,2/11/1945,Sub-Saharan Africa,Low income,Liberian,Liberians
+Libya,lby,africa,africa_north,middle_east_north_africa,g77,28,17,14/12/1955,Middle East & North Africa,Upper middle income,Libyan,Libyans
+Liechtenstein,lie,europe,europe_west,europe_central_asia,others,47.16667,9.53333,18/9/1990,Europe & Central Asia,High income,Liechtensteiner,Liechtensteiners
+Lithuania,ltu,europe,europe_east,europe_central_asia,others,55.41667,24,17/9/1991,Europe & Central Asia,High income,Lithuanian,Lithuanians
+Luxembourg,lux,europe,europe_west,europe_central_asia,oecd,49.61167,6.13,24/10/1945,Europe & Central Asia,High income,"Luxembourg, Luxembourgish",Luxembourgers
+"Macedonia, FYR",mkd,europe,europe_east,europe_central_asia,others,41.66667,21.75,8/4/1993,Europe & Central Asia,Upper middle income,Macedonian,Macedonian
+Madagascar,mdg,africa,africa_sub_saharan,sub_saharan_africa,g77,-20,47,20/9/1960,Sub-Saharan Africa,Low income,Malagasy,Malagasy
+Malawi,mwi,africa,africa_sub_saharan,sub_saharan_africa,g77,-13.5,34,1/12/1964,Sub-Saharan Africa,Low income,Malawian,Malawians
+Malaysia,mys,asia,east_asia_pacific,east_asia_pacific,g77,2.5,112.5,17/9/1957,East Asia & Pacific,Upper middle income,Malaysian,Malaysians
+Maldives,mdv,asia,asia_west,south_asia,g77,3.2,73,21/9/1965,South Asia,Upper middle income,Maldivian,Maldivians
+Mali,mli,africa,africa_sub_saharan,sub_saharan_africa,g77,18,-2,28/9/1960,Sub-Saharan Africa,Low income,"Malian, Malinese",Malians
+Malta,mlt,europe,europe_west,europe_central_asia,others,35.91667,14.43333,1/12/1964,Middle East & North Africa,High income,Maltese,Maltese
+Marshall Islands,mhl,asia,east_asia_pacific,east_asia_pacific,g77,7.113,171.236,17/9/1991,East Asia & Pacific,Upper middle income,Marshallese,Marshallese
+Mauritania,mrt,africa,africa_sub_saharan,sub_saharan_africa,g77,20.25,-10.5,27/10/1961,Sub-Saharan Africa,Lower middle income,Mauritanian,Mauritanians
+Mauritius,mus,africa,africa_sub_saharan,sub_saharan_africa,g77,-20.3,57.58333,24/4/1968,Sub-Saharan Africa,Upper middle income,Mauritian,Mauritians
+Mexico,mex,americas,america_north,america,oecd,19.42847,-99.12766,7/11/1945,Latin America & Caribbean,Upper middle income,Mexican,Mexicans
+"Micronesia, Fed. Sts.",fsm,asia,east_asia_pacific,east_asia_pacific,g77,6.924,158.162,17/9/1991,East Asia & Pacific,Lower middle income,Micronesian,Micronesians
+Moldova,mda,europe,europe_east,europe_central_asia,others,47.25,28.58333,2/3/1992,Europe & Central Asia,Lower middle income,Moldovan,Moldovans
+Monaco,mco,europe,europe_west,europe_central_asia,others,43.73333,7.41667,28/5/1993,Europe & Central Asia,High income,Monacan,"Monégasques, Monacans"
+Mongolia,mng,asia,east_asia_pacific,east_asia_pacific,g77,46,105,27/10/1961,East Asia & Pacific,Lower middle income,Mongolian,"Mongolians, Mongols"
+Montenegro,mne,europe,europe_east,europe_central_asia,others,42.75,19.25,28/6/2006,Europe & Central Asia,Upper middle income,Montenegrin,Montenegrins
+Morocco,mar,africa,africa_north,middle_east_north_africa,g77,32,-6,12/11/1956,Middle East & North Africa,Lower middle income,Moroccan,Moroccans
+Mozambique,moz,africa,africa_sub_saharan,sub_saharan_africa,g77,-18.25,35,16/9/1975,Sub-Saharan Africa,Low income,Mozambican,Mozambicans
+Myanmar,mmr,asia,east_asia_pacific,east_asia_pacific,g77,21,96,19/4/1948,East Asia & Pacific,Lower middle income,"Myanma, Burmese",Myanmars
+Namibia,nam,africa,africa_sub_saharan,sub_saharan_africa,g77,-22,17,23/4/1990,Sub-Saharan Africa,Upper middle income,Namibian,Namibians
+Nauru,nru,asia,east_asia_pacific,east_asia_pacific,others,-0.517,166.933,14/9/1999,East Asia & Pacific,Upper middle income,Nauruan,Nauruans
+Nepal,npl,asia,asia_west,south_asia,g77,28,84,14/12/1955,South Asia,Low income,"Nepali, Nepalese","Nepali, Nepalese"
+Netherlands,nld,europe,europe_west,europe_central_asia,oecd,52.25,5.75,10/12/1945,Europe & Central Asia,High income,"Dutch, Netherlandic","Dutch, Dutchmen/Dutchwomen, Netherlanders"
+New Zealand,nzl,asia,east_asia_pacific,east_asia_pacific,oecd,-42,174,24/10/1945,East Asia & Pacific,High income,"New Zealand, New Zealandic",New Zealanders
+Nicaragua,nic,americas,america_north,america,g77,13,-85,24/10/1945,Latin America & Caribbean,Lower middle income,Nicaraguan,Nicaraguans
+Niger,ner,africa,africa_sub_saharan,sub_saharan_africa,g77,18,9,20/9/1960,Sub-Saharan Africa,Low income,Nigerien,Nigeriens
+Nigeria,nga,africa,africa_sub_saharan,sub_saharan_africa,g77,10,8,7/10/1960,Sub-Saharan Africa,Lower middle income,Nigerian,Nigerians
+Norway,nor,europe,europe_west,europe_central_asia,oecd,62,10,27/11/1945,Europe & Central Asia,High income,Norwegian,Norwegians
+Oman,omn,asia,asia_west,middle_east_north_africa,g77,21,57,7/10/1971,Middle East & North Africa,High income,Omani,Omanis
+Pakistan,pak,asia,asia_west,south_asia,g77,30,70,30/9/1947,South Asia,Lower middle income,Pakistani,Pakistanis
+Palau,plw,asia,east_asia_pacific,east_asia_pacific,others,7.503,134.621,15/12/1994,East Asia & Pacific,High income,Palauan,Palauans
+Panama,pan,americas,america_north,america,g77,8.9936,-79.51973,13/11/1945,Latin America & Caribbean,Upper middle income,Panamanian,Panamanians
+Papua New Guinea,png,asia,east_asia_pacific,east_asia_pacific,g77,-6,147,10/10/1975,East Asia & Pacific,Lower middle income,"Papua New Guinean, Papuan","Papua New Guineans, Papuans"
+Paraguay,pry,americas,america_south,america,g77,-23.33333,-58,24/10/1945,Latin America & Caribbean,Upper middle income,Paraguayan,Paraguayans
+Peru,per,americas,america_south,america,g77,-10,-75.25,31/10/1945,Latin America & Caribbean,Upper middle income,Peruvian,Peruvians
+Philippines,phl,asia,east_asia_pacific,east_asia_pacific,g77,13,122,24/10/1945,East Asia & Pacific,Lower middle income,"Filipino, Philippine",Filipinos/Filipinas
+Poland,pol,europe,europe_west,europe_central_asia,oecd,52,20,24/10/1945,Europe & Central Asia,High income,Polish,Poles
+Portugal,prt,europe,europe_west,europe_central_asia,oecd,39.6945,-8.13057,14/12/1955,Europe & Central Asia,High income,Portuguese,Portuguese
+Qatar,qat,asia,asia_west,middle_east_north_africa,g77,25.27932,51.52245,21/9/1971,Middle East & North Africa,High income,Qatari,Qataris
+Romania,rou,europe,europe_east,europe_central_asia,others,46,25,14/12/1955,Europe & Central Asia,Upper middle income,Romanian,Romanians
+Russia,rus,europe,europe_east,europe_central_asia,others,60,100,24/10/1945,Europe & Central Asia,Upper middle income,Russian,Russians
+Rwanda,rwa,africa,africa_sub_saharan,sub_saharan_africa,g77,-2,30,18/9/1962,Sub-Saharan Africa,Low income,Rwandan,"Rwandans, Banyarwanda"
+St. Kitts and Nevis,kna,americas,america_north,america,g77,17.33333,-62.75,23/9/1983,Latin America & Caribbean,High income,Kittitian,Kittitians
+St. Lucia,lca,americas,america_north,america,g77,13.88333,-60.96667,18/9/1979,Latin America & Caribbean,Upper middle income,Saint Lucian,Saint Lucians
+St. Vincent and the Grenadines,vct,americas,america_north,america,g77,13.08333,-61.2,16/9/1980,Latin America & Caribbean,Upper middle income,"Saint Vincentian, Vincentian", "Saint Vincentians or Vincentians"
+Samoa,wsm,asia,east_asia_pacific,east_asia_pacific,g77,-13.8,-172.13333,15/12/1976,East Asia & Pacific,Upper middle income,Samoan,Samoans
+San Marino,smr,europe,europe_west,europe_central_asia,others,43.93667,12.44639,2/3/1992,Europe & Central Asia,High income,Sammarinese,Sammarinese
+Sao Tome and Principe,stp,africa,africa_sub_saharan,sub_saharan_africa,g77,1,7,16/9/1975,Sub-Saharan Africa,Lower middle income,Sao Tomean,Sao Tomeans
+Saudi Arabia,sau,asia,asia_west,middle_east_north_africa,g77,25,45,24/10/1945,Middle East & North Africa,High income,"Saudi, Saudi Arabian","Saudis, Saudi Arabians"
+Senegal,sen,africa,africa_sub_saharan,sub_saharan_africa,g77,14.5,-14.25,28/9/1960,Sub-Saharan Africa,Low income,Senegalese,Senegalese
+Serbia,srb,europe,europe_east,europe_central_asia,others,44.81892,20.45998,1/11/2000,Europe & Central Asia,Upper middle income,Serbian,"Serbs, Serbians"
+Seychelles,syc,africa,africa_sub_saharan,sub_saharan_africa,g77,-4.58333,55.66667,21/9/1976,Sub-Saharan Africa,High income,Seychellois,Seychellois/Seychelloises
+Sierra Leone,sle,africa,africa_sub_saharan,sub_saharan_africa,g77,8.5,-11.5,27/9/1961,Sub-Saharan Africa,Low income,Sierra Leonean,Sierra Leoneans
+Singapore,sgp,asia,east_asia_pacific,east_asia_pacific,g77,1.28967,103.85007,21/9/1965,East Asia & Pacific,High income,"Singapore, Singaporean",Singaporeans
+Slovak Republic,svk,europe,europe_east,europe_central_asia,oecd,48.66667,19.5,19/1/1993,Europe & Central Asia,High income,Slovak,Slovaks
+Slovenia,svn,europe,europe_east,europe_central_asia,others,46.08333,15,22/5/1992,Europe & Central Asia,High income,"Slovenian, Slovene","Slovenes, Slovenians"
+Solomon Islands,slb,asia,east_asia_pacific,east_asia_pacific,g77,-8,159,19/9/1978,East Asia & Pacific,Lower middle income,Solomon Island,Solomon Islanders
+Somalia,som,africa,africa_sub_saharan,sub_saharan_africa,g77,6,48,20/9/1960,Sub-Saharan Africa,Low income,Somali,Somalis
+South Africa,zaf,africa,africa_sub_saharan,sub_saharan_africa,g77,-29,24,7/11/1945,Sub-Saharan Africa,Upper middle income,South African,South Africans
+Spain,esp,europe,europe_west,europe_central_asia,oecd,40,-4,14/12/1955,Europe & Central Asia,High income,Spanish,Spaniards
+Sri Lanka,lka,asia,asia_west,south_asia,g77,7.75,80.75,14/12/1955,South Asia,Lower middle income,Sri Lankan,Sri Lankans
+Sudan,sdn,africa,africa_sub_saharan,sub_saharan_africa,g77,16,30,12/11/1956,Sub-Saharan Africa,Lower middle income,Sudanese,Sudanese
+Suriname,sur,americas,america_south,america,g77,4,-56,4/12/1975,Latin America & Caribbean,Upper middle income,Surinamese,Surinamers
+Swaziland,swz,africa,africa_sub_saharan,sub_saharan_africa,g77,-26.5,31.5,24/9/1968,Sub-Saharan Africa,Lower middle income,"Swazi, Swati",Swazis
+Sweden,swe,europe,europe_west,europe_central_asia,oecd,62,15,19/11/1946,Europe & Central Asia,High income,Swedish,Swedes
+Switzerland,che,europe,europe_west,europe_central_asia,oecd,47.00016,8.01427,10/9/2002,Europe & Central Asia,High income,Swiss,Swiss
+Syria,syr,asia,asia_west,middle_east_north_africa,g77,35,38,24/10/1945,Middle East & North Africa,Lower middle income,Syrian,Syrians
+Taiwan,twn,asia,east_asia_pacific,east_asia_pacific,others,24,121,,East Asia & Pacific,High income,Taiwanese,Taiwanese
+Tajikistan,tjk,asia,asia_west,europe_central_asia,others,39,71,2/3/1992,Europe & Central Asia,Lower middle income,Tajikistani,"Tajikistanis, Tajiks"
+Tanzania,tza,africa,africa_sub_saharan,sub_saharan_africa,g77,-6,35,14/12/1961,Sub-Saharan Africa,Low income,Tanzanian,Tanzanians
+Thailand,tha,asia,east_asia_pacific,east_asia_pacific,g77,15.5,101,16/12/1946,East Asia & Pacific,Upper middle income,Thai,Thai
+Timor-Leste,tls,asia,east_asia_pacific,east_asia_pacific,g77,-8.83333,125.75,27/9/2002,East Asia & Pacific,Lower middle income,Timorese,Timorese
+Togo,tgo,africa,africa_sub_saharan,sub_saharan_africa,g77,8.66667,1.08333,20/9/1960,Sub-Saharan Africa,Low income,Togolese,Togolese
+Tonga,ton,asia,east_asia_pacific,east_asia_pacific,g77,-20,-175,14/9/1999,East Asia & Pacific,Upper middle income,Tongan,Tongans
+Trinidad and Tobago,tto,americas,america_north,america,g77,11,-61,18/9/1962,Latin America & Caribbean,High income,"Trinidadian, Tobagonian","Trinidadians, Tobagonians"
+Tunisia,tun,africa,africa_north,middle_east_north_africa,g77,34,9,12/11/1956,Middle East & North Africa,Lower middle income,Tunisian,Tunisians
+Turkey,tur,europe,europe_east,europe_central_asia,oecd,39,35,24/10/1945,Europe & Central Asia,Upper middle income,Turkish,Turks
+Turkmenistan,tkm,asia,asia_west,europe_central_asia,g77,39.75,59.66667,2/3/1992,Europe & Central Asia,Upper middle income,Turkmen,Turkmens
+Tuvalu,tuv,asia,east_asia_pacific,east_asia_pacific,others,-8.51719,179.14478,5/9/2000,East Asia & Pacific,Upper middle income,Tuvaluan,Tuvaluans
+Uganda,uga,africa,africa_sub_saharan,sub_saharan_africa,g77,1.25,32.5,25/10/1962,Sub-Saharan Africa,Low income,Ugandan,Ugandans
+Ukraine,ukr,europe,europe_east,europe_central_asia,others,49,32,24/10/1945,Europe & Central Asia,Lower middle income,Ukrainian,Ukrainians
+United Arab Emirates,are,asia,asia_west,middle_east_north_africa,g77,23.75,54.5,9/12/1971,Middle East & North Africa,High income,"Emirati, Emirian, Emiri","Emiratis, Emirians, Emiri"
+United Kingdom,gbr,europe,europe_west,europe_central_asia,oecd,54.75844,-2.69531,24/10/1945,Europe & Central Asia,High income,British,British
+United States,usa,americas,america_north,america,oecd,39.76,-98.5,24/10/1945,North America,High income,American,Americans
+Uruguay,ury,americas,america_south,america,g77,-33,-56,18/12/1945,Latin America & Caribbean,High income,Uruguayan,Uruguayans
+Uzbekistan,uzb,asia,asia_west,europe_central_asia,others,41.66667,63.83333,2/3/1992,Europe & Central Asia,Lower middle income,"Uzbekistani, Uzbek","Uzbekistanis, Uzbeks"
+Vanuatu,vut,asia,east_asia_pacific,east_asia_pacific,g77,-16,167,15/9/1981,East Asia & Pacific,Lower middle income,"Ni-Vanuatu, Vanuatuan",Ni-Vanuatu
+Venezuela,ven,americas,america_south,america,g77,8,-66,15/11/1945,Latin America & Caribbean,Upper middle income,Venezuelan,Venezuelans
+Palestine,pse,asia,asia_west,middle_east_north_africa,g77,31.92157,35.20329,,Middle East & North Africa,Lower middle income,Palestinian,Palestinians
+Vietnam,vnm,asia,east_asia_pacific,east_asia_pacific,g77,16.16667,107.83333,20/9/1977,East Asia & Pacific,Lower middle income,Vietnamese,Vietnamese people
+Yemen,yem,asia,asia_west,middle_east_north_africa,g77,15.5,47.5,30/9/1947,Middle East & North Africa,Lower middle income,Yemeni,Yemenis
+Zambia,zmb,africa,africa_sub_saharan,sub_saharan_africa,g77,-14.33333,28.5,1/12/1964,Sub-Saharan Africa,Lower middle income,Zambian,Zambians
+Zimbabwe,zwe,africa,africa_sub_saharan,sub_saharan_africa,g77,-19,29.75,25/8/1980,Sub-Saharan Africa,Low income,Zimbabwean,Zimbabweans
+South Sudan,ssd,africa,africa_sub_saharan,sub_saharan_africa,,7.5,30,14/7/2011,Sub-Saharan Africa,Low income,South Sudanese,South Sudanese
