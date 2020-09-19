@@ -3,6 +3,13 @@
 ### First, be sure to read the main README.md for general information!
 ### Due date: 11:55PM of 25 of September. LATE SUBMISSIONS WILL NOT BE ACCEPTED.
 
+## How to run the Python Code
+In case you are using pycharm, you just need to right click any python file and select `Run 'ScriptName.py'` to run it, however **if you are running the python file from a terminal**, run the following:
+* For windows, `cd` into the *assignments1* folder and run `set PYTHONPATH=..\..\ && python ScriptName.py`
+* For mac/linux, `cd` into the *assignments1* folder and run `export PYTHONPATH=../../ && python ScriptName.py`
+
+This is due to the normal import pathing python uses. This will ensure that you are able to use code from other folders in your project (e.g. use assignment1 scripts in the assignment2 folder, when time comes).
+
 ## General Instructions
 * Read the Dalhousie Policy on Plagiarism.
 * The assignment must be done individually.

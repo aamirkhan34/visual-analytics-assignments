@@ -70,7 +70,7 @@ def get_correlation_between_columns(df: pd.DataFrame, col1: str, col2: str) -> f
 
 
 if __name__ == "__main__":
-    df = read_dataset(Path('../iris.csv'))
+    df = read_dataset(Path('..', '..', 'iris.csv'))
     a = pandas_profile(df)
     assert get_column_max(df, df.columns[0]) is not None
     assert get_column_min(df, df.columns[0]) is not None

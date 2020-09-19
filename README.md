@@ -18,5 +18,12 @@ You are configured as a `Developer` in the repository, therefore you are only ab
 
 Every time a new assigment is posted, a new protected branch will appear in the repository. You should do a `git merge` from the contents of that branch into your development branch (which may be `master` or some other of your choice), do the assignments and when you wish to submit it, you will merge your development branch back to the assignment branch, which will accept merge requests until the submission deadline. If anyone needs help to understand this, feel free to ask on the assignments MS teams channel.
 
+## How to run the Python Code
+In case you are using pycharm, you just need to right click any python file and select `Run 'ScriptName.py'` to run it, however **if you are running the python file from a terminal**, run the following (examples here are in related to assignment1):
+* For windows, `cd` into the *assignments1* folder and run `set PYTHONPATH=..\..\ && python ScriptName.py`
+* For mac/linux, `cd` into the *assignments1* folder and run `export PYTHONPATH=../../ && python ScriptName.py`
+
+This is due to the normal import pathing python uses. This will ensure that you are able to use code from other folders in your project (e.g. use assignment1 scripts in the assignment2 folder, when time comes).
+
 ## How to submit your assignments
 The submission will be made though each of the assignments branch. The branch will be open to merge requests (or even commits, though for your own good practice, prefer only to do merge requests to it) in the period where we accept submissions. At the end of this period, the branch will be blocked for any further commits or merges and the latest commit/merge will be considered your official submission for that assignment. 
