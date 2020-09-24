@@ -50,7 +50,20 @@ def fix_numeric_wrong_values(df: pd.DataFrame,
     :param must_be_rule_optional_parameter: optional parameter for the "greater than" or "less than" cases
     :return: The dataset with fixed column
     """
-    pass
+    df_copy = df.copy()
+
+    if must_be_rule == WrongValueNumericRule.MUST_BE_LESS_THAN:
+        df_copy.loc[df_copy[column] >=
+                    must_be_rule_optional_parameter, column] = np.nan
+    elif must_be_rule == WrongValueNumericRule.MUST_BE_GREATER_THAN:
+        df_copy.loc[df_copy[column] <=
+                    must_be_rule_optional_parameter, column] = np.nan
+    elif must_be_rule == WrongValueNumericRule.MUST_BE_NEGATIVE:
+        df_copy.loc[df_copy[column] >= 0, column] = np.nan
+    elif must_be_rule == WrongValueNumericRule.MUST_BE_POSITIVE:
+        df_copy.loc[df_copy[column] < 0, column] = np.nan
+
+    return df_copy
 
 
 def fix_outliers(df: pd.DataFrame, column: str) -> pd.DataFrame:
@@ -66,7 +79,12 @@ def fix_outliers(df: pd.DataFrame, column: str) -> pd.DataFrame:
     :param column: the column to be investigated and fixed
     :return: The dataset with fixed column
     """
-    pass
+    numeric_columns = get_numeric_columns(df)
+    if column in numeric_columns:
+        return df
+
+    print("Not a numeric column")
+    return df
 
 
 def fix_nans(df: pd.DataFrame, column: str) -> pd.DataFrame:
@@ -123,16 +141,24 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
 
 
 if __name__ == "__main__":
-    df = pd.DataFrame({'a':[1,2,3,None], 'b': [True, True, False, None], 'c': ['one', 'two', np.nan, None]})
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_LESS_THAN, 2) is not None
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_GREATER_THAN, 2) is not None
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_POSITIVE, 2) is not None
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_NEGATIVE, 2) is not None
+    df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
+                      True, True, False, None], 'c': ['one', 'two', np.nan, None]})
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_LESS_THAN, 2) is not None
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_GREATER_THAN, 2) is not None
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_POSITIVE, 2) is not None
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_NEGATIVE, 2) is not None
     assert fix_outliers(df, 'c') is not None
     assert fix_nans(df, 'c') is not None
     assert normalize_column(df.loc[:, 'a']) is not None
     assert standardize_column(df.loc[:, 'a']) is not None
-    assert calculate_numeric_distance(df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.EUCLIDEAN) is not None
-    assert calculate_numeric_distance(df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.MANHATTAN) is not None
-    assert calculate_binary_distance(df.loc[:, 'b'], df.loc[:, 'b']) is not None
+    assert calculate_numeric_distance(
+        df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.EUCLIDEAN) is not None
+    assert calculate_numeric_distance(
+        df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.MANHATTAN) is not None
+    assert calculate_binary_distance(
+        df.loc[:, 'b'], df.loc[:, 'b']) is not None
     print("ok")
