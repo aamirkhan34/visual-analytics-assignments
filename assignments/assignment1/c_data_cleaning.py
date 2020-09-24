@@ -81,6 +81,24 @@ def fix_outliers(df: pd.DataFrame, column: str) -> pd.DataFrame:
     """
     numeric_columns = get_numeric_columns(df)
     if column in numeric_columns:
+        # Ref: https://app.pluralsight.com/guides/cleaning-up-data-from-outliers
+        # Finding outliers
+        quartile1 = df[column].quantile(0.25)
+        quartile3 = df[column].quantile(0.75)
+        inter_quartile_range = quartile3 - quartile1
+
+        df["Is_Outlier"] = (df[column] < (quartile1 - 1.5 * inter_quartile_range)
+                            ) | (df[column] > (quartile3 + 1.5 * inter_quartile_range))
+
+        # Fixing outliers - Flooring and Capping approach
+        quantile10 = df[column].quantile(0.10)
+        quantile90 = df[column].quantile(0.90)
+        df.loc[((df["Is_Outlier"] == True) & (
+            df[column] < quantile10)), column] = quantile10
+        df.loc[((df["Is_Outlier"] == True) & (
+            df[column] > quantile90)), column] = quantile90
+        df.drop("Is_Outlier", axis=1, inplace=True)
+
         return df
 
     print("Not a numeric column")
@@ -142,7 +160,9 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
 
 if __name__ == "__main__":
     df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
-                      True, True, False, None], 'c': ['one', 'two', np.nan, None]})
+                      True, True, False, None], 'c': [1, 2, 3, 9]})
+    # df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
+    #                   True, True, False, None], 'c': ['one', 'two', np.nan, None]})
     assert fix_numeric_wrong_values(
         df, 'a', WrongValueNumericRule.MUST_BE_LESS_THAN, 2) is not None
     assert fix_numeric_wrong_values(
