@@ -81,25 +81,26 @@ def fix_outliers(df: pd.DataFrame, column: str) -> pd.DataFrame:
     """
     numeric_columns = get_numeric_columns(df)
     if column in numeric_columns:
+        df_copy = df.copy()
         # Ref: https://app.pluralsight.com/guides/cleaning-up-data-from-outliers
         # Finding outliers
         quartile1 = df[column].quantile(0.25)
         quartile3 = df[column].quantile(0.75)
         inter_quartile_range = quartile3 - quartile1
 
-        df["Is_Outlier"] = (df[column] < (quartile1 - 1.5 * inter_quartile_range)
-                            ) | (df[column] > (quartile3 + 1.5 * inter_quartile_range))
+        df_copy["Is_Outlier"] = (df_copy[column] < (quartile1 - 1.5 * inter_quartile_range)
+                                 ) | (df_copy[column] > (quartile3 + 1.5 * inter_quartile_range))
 
         # Fixing outliers - Flooring and Capping approach
-        quantile10 = df[column].quantile(0.10)
-        quantile90 = df[column].quantile(0.90)
-        df.loc[((df["Is_Outlier"] == True) & (
-            df[column] < quantile10)), column] = quantile10
-        df.loc[((df["Is_Outlier"] == True) & (
-            df[column] > quantile90)), column] = quantile90
-        df.drop("Is_Outlier", axis=1, inplace=True)
+        quantile10 = df_copy[column].quantile(0.10)
+        quantile90 = df_copy[column].quantile(0.90)
+        df_copy.loc[((df_copy["Is_Outlier"] == True) & (
+            df_copy[column] < quantile10)), column] = quantile10
+        df_copy.loc[((df_copy["Is_Outlier"] == True) & (
+            df_copy[column] > quantile90)), column] = quantile90
+        df_copy.drop("Is_Outlier", axis=1, inplace=True)
 
-        return df
+        return df_copy
 
     print("Not a numeric column")
     return df
@@ -180,13 +181,16 @@ def calculate_numeric_distance(df_column_1: pd.Series, df_column_2: pd.Series, d
         distance = np.linalg.norm(df_column_1 - df_column_2)
 
     elif distance_metric == DistanceMetric.MANHATTAN:
-        # TODO
+        abs_diff = np.absolute(df_column_1 - df_column_2)
+        distance = abs_diff.sum()
 
     else:
         print("Distance metric not supported")
         distance = None
 
-    pass
+    df = pd.DataFrame(data={'Distance': [distance]})
+
+    return df
 
 
 def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) -> pd.Series:
@@ -197,12 +201,30 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
     :param df_column_2: Dataset's column
     :return: A new 'column' with the distance between the two inputted columns
     """
-    pass
+    d = {"Col1": df_column_1.tolist(), "Col2": df_column_2.tolist()}
+    df = pd.DataFrame(data=d)
+
+    # Jaccard's distance
+    true_values = [True, 1]
+    false_values = [False, 0]
+    p_df = df[(df['Col1'].isin(true_values)) & (df['Col2'].isin(true_values))]
+
+    qr_df = df[((df['Col1'].isin(true_values)) &
+                (df['Col2'].isin(false_values)) | (df['Col1'].isin(false_values)) &
+                (df['Col2'].isin(true_values)))]
+
+    p = len(p_df)
+    qr = len(qr_df)
+
+    distance = qr/(p+qr)
+    dist_df = pd.DataFrame(data={'Binary_Distance': [distance]})
+
+    return dist_df
 
 
 if __name__ == "__main__":
-    df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
-        True, True, False, None], 'c': [1, 2, np.nan, 4]})
+    df = pd.DataFrame({'a': [1, 2, 3, 4], 'b': [
+        True, True, False, None], 'c': [True, True, True, None]})
     # df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
     #                   True, True, False, None], 'c': ['one', 'two', np.nan, None]})
     assert fix_numeric_wrong_values(
@@ -222,5 +244,5 @@ if __name__ == "__main__":
     assert calculate_numeric_distance(
         df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.MANHATTAN) is not None
     assert calculate_binary_distance(
-        df.loc[:, 'b'], df.loc[:, 'b']) is not None
+        df.loc[:, 'b'], df.loc[:, 'c']) is not None
     print("ok")
