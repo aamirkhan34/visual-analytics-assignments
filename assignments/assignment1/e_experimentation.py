@@ -192,13 +192,35 @@ def process_life_expectancy_dataset():
     """
     df_geo = read_dataset(Path('..', '..', 'geography.csv'))
     df_ley = read_dataset(Path('..', '..', 'life_expectancy_years.csv'))
-    print(df_geo.head())
-    print(df_ley.head())
+    all_columns_ley = list(df_ley.columns.values)
+
+    # 1. fixing outlier and missing_values in ley dataset
+    for column in all_columns_ley:
+        df_ley = fix_outliers(df_ley, column)
+        df_ley = fix_nans(df_ley, column)
+
+    # 2. In Python 3, characters are unicode by default
+
+    # 3. Change format of ley - from wide to long
+    # Ref: https://www.journaldev.com/33398/pandas-melt-unmelt-pivot-function
+    df_ley_rearranged = pd.melt(
+        df_ley, id_vars=all_columns_ley[0], var_name="year", value_vars=all_columns_ley[1:])
+
+    # 4. Merge ley and geo on country
+    df_merged = df_ley_rearranged.merge(
+        df_geo, left_on='country', right_on='name')
+
+    # 5. Drop other columns except
+    df_merged = df_merged[['country',
+                           'eight_regions', 'year', 'value', 'Latitude']]
+    # df_merged = pd.rename(df_merged, {"eight_regions"})
+
+    # 6.
 
 
 if __name__ == "__main__":
-    assert process_iris_dataset() is not None
-    assert process_iris_dataset_again() is not None
-    assert process_amazon_video_game_dataset() is not None
-    assert process_amazon_video_game_dataset_again() is not None
+    # assert process_iris_dataset() is not None
+    # assert process_iris_dataset_again() is not None
+    # assert process_amazon_video_game_dataset() is not None
+    # assert process_amazon_video_game_dataset_again() is not None
     assert process_life_expectancy_dataset() is not None
