@@ -190,7 +190,7 @@ def calculate_numeric_distance(df_column_1: pd.Series, df_column_2: pd.Series, d
 
     df = pd.DataFrame(data={'Distance': [distance]})
 
-    return df
+    return df['Distance']
 
 
 def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) -> pd.Series:
@@ -219,7 +219,7 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
     distance = qr/(p+qr)
     dist_df = pd.DataFrame(data={'Binary_Distance': [distance]})
 
-    return dist_df
+    return dist_df['Binary_Distance']
 
 
 if __name__ == "__main__":

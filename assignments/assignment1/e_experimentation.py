@@ -48,13 +48,15 @@ def process_iris_dataset() -> pd.DataFrame:
     distances = pd.DataFrame()
     for nc_combination in list(itertools.combinations(numeric_columns, 2)):
         distances[str(nc_combination)] = calculate_numeric_distance(df.loc[:, nc_combination[0]],
-                                                                    df.loc[:, nc_combination[1]],
+                                                                    df.loc[:,
+                                                                           nc_combination[1]],
                                                                     DistanceMetric.EUCLIDEAN).values
     df['numeric_mean'] = distances.mean(axis=1)
 
     for cc in categorical_columns:
         ohe = generate_one_hot_encoder(df.loc[:, cc])
-        df = replace_with_one_hot_encoder(df, cc, ohe, list(ohe.get_feature_names()))
+        df = replace_with_one_hot_encoder(
+            df, cc, ohe, list(ohe.get_feature_names()))
 
     return df
 
@@ -73,7 +75,43 @@ def process_iris_dataset_again() -> pd.DataFrame:
     saying whether the row's sepal_length is larger (true) or not (false) than 5.0
     :return: A dataframe with the above conditions.
     """
-    pass
+    df = read_dataset(Path('..', '..', 'iris.csv'))
+    numeric_columns = get_numeric_columns(df)
+    categorical_columns = get_text_categorical_columns(df)
+
+    for nc in numeric_columns:
+        df = fix_outliers(df, nc)
+        df = fix_nans(df, nc)
+        df.loc[:, nc] = normalize_column(df.loc[:, nc])
+
+    for cc in categorical_columns:
+        le = generate_label_encoder(df.loc[:, cc])
+        df = replace_with_label_encoder(df, cc, le)
+
+    # Replacing wrong petal_widths with mean
+    df = fix_numeric_wrong_values(
+        df, "petal_width", WrongValueNumericRule.MUST_BE_GREATER_THAN, 0)
+    df = fix_numeric_wrong_values(
+        df, "petal_width", WrongValueNumericRule.MUST_BE_LESS_THAN, 1)
+    df["petal_width"].fillna(df["petal_width"].mean(), inplace=True)
+
+    # Adding large_sepal_length
+    df.loc[(df["sepal_length"] > 5.0), "large_sepal_length"] = True
+    df.loc[(df["sepal_length"] <= 5.0), "large_sepal_length"] = False
+
+    return df
+
+
+def fix_out_of_range_data_using_quantiles(df, column, range_min, range_max, min_quantile, max_quantile):
+    df_copy = df.copy()
+
+    quantile_min = df_copy[column].quantile(min_quantile)
+    quantile_max = df_copy[column].quantile(max_quantile)
+
+    df_copy.loc[(df_copy[column] < range_min), column] = quantile_min
+    df_copy.loc[(df_copy[column] > range_max), column] = quantile_max
+
+    return df_copy
 
 
 def process_amazon_video_game_dataset():
@@ -86,7 +124,27 @@ def process_amazon_video_game_dataset():
         and the average rating (as the "review" column).
     :return: A dataframe with the above conditions. The columns at the end should be: asin,review,time,count
     """
-    pass
+    df = read_dataset(Path('..', '..', 'ratings_Video_Games.csv'))
+
+    # 1. Rating between 1.0 and 5.0. Using Flooring and Capping approach
+    # Note: I am not using WrongValueNumericRule because they are not inclusive,
+    # i.e., they'll leave out 1.0 and 5.0
+    df = fix_out_of_range_data_using_quantiles(
+        df, "review", 1.0, 5.0, 0.1, 0.9)
+
+    # 2. Time to datetime
+    df["time"] = pd.to_datetime(df["time"], unit="ms")
+
+    # 3. Count and Average
+    df.drop("user", axis=1, inplace=True)
+    agg_df = df.groupby(["asin"]).agg(
+        review=('review', np.mean), count=('asin', 'count'))
+    # Merging time now because time is not required to be aggregated
+    agg_df = agg_df.merge(df[['asin', 'time']], on="asin")
+
+    processed_df = agg_df[['asin', 'review', 'time', 'count']]
+
+    return processed_df
 
 
 def process_amazon_video_game_dataset_again():
@@ -98,7 +156,24 @@ def process_amazon_video_game_dataset_again():
         and a statistical analysis of each user (average, median, std, etc..., each as its own row)
     :return: A dataframe with the above conditions.
     """
-    pass
+    df = read_dataset(Path('..', '..', 'ratings_Video_Games.csv'))
+
+    # 1. Rating between 1.0 and 5.0. Dropping other rows
+    # Note: I am not using WrongValueNumericRule because they are not inclusive,
+    # i.e., they'll leave out 1.0 and 5.0
+    df.loc[((df["review"] > 5.0) | (df["review"] < 1.0)), "review"] = np.nan
+    df = df[df['review'].notna()]
+
+    # 2. Time to datetime
+    df["time"] = pd.to_datetime(df["time"], unit="ms")
+
+    # 3. Statistical Analysis
+    agg_df = df.groupby(["user"]).agg(count=('review', 'count'), average=(
+        'review', np.mean), median=('review', np.median), std=('review', np.std),
+        min_rating=('review', np.min), max_rating=('review', np.max)).reset_index()
+    agg_df["std"].fillna(0.0, inplace=True)
+
+    return agg_df
 
 
 def process_life_expectancy_dataset():
@@ -115,7 +190,10 @@ def process_life_expectancy_dataset():
     7. Change the continent column to a one_hot_encoder version of it
     :return: A dataframe with the above conditions.
     """
-    pass
+    df_geo = read_dataset(Path('..', '..', 'geography.csv'))
+    df_ley = read_dataset(Path('..', '..', 'life_expectancy_years.csv'))
+    print(df_geo.head())
+    print(df_ley.head())
 
 
 if __name__ == "__main__":

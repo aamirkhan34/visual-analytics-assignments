@@ -83,8 +83,9 @@ def get_binary_columns(df: pd.DataFrame) -> List[str]:
 
 
 def get_text_categorical_columns(df: pd.DataFrame) -> List[str]:
-    df_text = df.select_dtypes(include='object')
-    df_text_cat = df.select_dtypes(include='category')
+    df_text_cat = df.select_dtypes(include='object')
+    # The following is not working since pandas is not recognizing category type
+    # df_text_cat = df_text_cat.select_dtypes(include='category')
 
     return list(df_text_cat.columns.values)
 
