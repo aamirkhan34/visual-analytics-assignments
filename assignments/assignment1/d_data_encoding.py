@@ -28,7 +28,10 @@ def generate_label_encoder(df_column: pd.Series) -> LabelEncoder:
     :param df_column: Dataset's column
     :return: A label encoder of the column
     """
-    pass
+    label_encoder = LabelEncoder()
+    label_encoder.fit(df_column)
+
+    return label_encoder
 
 
 def generate_one_hot_encoder(df_column: pd.Series) -> OneHotEncoder:
@@ -37,7 +40,10 @@ def generate_one_hot_encoder(df_column: pd.Series) -> OneHotEncoder:
     :param df_column: Dataset's column
     :return: A label encoder of the column
     """
-    pass
+    one_hot_encoder = OneHotEncoder()
+    one_hot_encoder.fit(df_column.values.reshape(-1, 1))
+
+    return one_hot_encoder
 
 
 def replace_with_label_encoder(df: pd.DataFrame, column: str, le: LabelEncoder) -> pd.DataFrame:
@@ -48,7 +54,10 @@ def replace_with_label_encoder(df: pd.DataFrame, column: str, le: LabelEncoder) 
     :param le: the label encoder to be used to replace the column
     :return: The df with the column replaced with the one from label encoder
     """
-    pass
+    df_copy = df.copy()
+    df_copy[column] = le.transform(df_copy[column])
+
+    return df_copy
 
 
 def replace_with_one_hot_encoder(df: pd.DataFrame, column: str, ohe: OneHotEncoder, ohe_column_names: List[str]) -> pd.DataFrame:
@@ -61,7 +70,16 @@ def replace_with_one_hot_encoder(df: pd.DataFrame, column: str, ohe: OneHotEncod
     :param ohe_column_names: the names to be used as the one hot encoded's column names
     :return: The df with the column replaced with the one from label encoder
     """
-    pass
+    df_copy = df.copy()
+    encoded_array = ohe.transform(
+        df_copy[column].values.reshape(-1, 1)).toarray()
+
+    for idx, col in enumerate(ohe_column_names):
+        df_copy[col] = encoded_array[:, idx]
+
+    df_copy.drop(column, inplace=True, axis=1)
+
+    return df_copy
 
 
 def replace_label_encoder_with_original_column(df: pd.DataFrame, column: str, le: LabelEncoder) -> pd.DataFrame:
@@ -73,7 +91,10 @@ def replace_label_encoder_with_original_column(df: pd.DataFrame, column: str, le
     :param le: the label encoder to be used to revert the column
     :return: The df with the column reverted from label encoder
     """
-    pass
+    df_copy = df.copy()
+    df_copy[column] = le.inverse_transform(df_copy[column])
+
+    return df_copy
 
 
 def replace_one_hot_encoder_with_original_column(df: pd.DataFrame,
@@ -90,20 +111,30 @@ def replace_one_hot_encoder_with_original_column(df: pd.DataFrame,
     :param original_column_name: the original column name which was used before being replaced with the one hot encoded version of it
     :return: The df with the columns reverted from the one hot encoder
     """
-    pass
+    df_copy = df.copy()
+    df_ohe = df_copy[columns]
+    org_array = ohe.inverse_transform(df_ohe.values)
+    df_copy[original_column_name] = org_array
+    df_copy.drop(columns, axis=1, inplace=True)
+
+    return df_copy
 
 
 if __name__ == "__main__":
-    df = pd.DataFrame({'a':[1,2,3,4], 'b': [True, True, False, False], 'c': ['one', 'two', 'three', 'four']})
+    df = pd.DataFrame({'a': [1, 2, 3, 4], 'b': [True, True, False, False], 'c': [
+                      'one', 'two', 'three', 'four']})
     le = generate_label_encoder(df.loc[:, 'c'])
     assert le is not None
     ohe = generate_one_hot_encoder(df.loc[:, 'c'])
     assert ohe is not None
     assert replace_with_label_encoder(df, 'c', le) is not None
-    assert replace_with_one_hot_encoder(df, 'c', ohe, list(ohe.get_feature_names())) is not None
-    assert replace_label_encoder_with_original_column(replace_with_label_encoder(df, 'c', le), 'c', le) is not None
+    assert replace_with_one_hot_encoder(
+        df, 'c', ohe, list(ohe.get_feature_names())) is not None
+    assert replace_label_encoder_with_original_column(
+        replace_with_label_encoder(df, 'c', le), 'c', le) is not None
     assert replace_one_hot_encoder_with_original_column(replace_with_one_hot_encoder(df, 'c', ohe, list(ohe.get_feature_names())),
-                                                        list(ohe.get_feature_names()),
+                                                        list(
+                                                            ohe.get_feature_names()),
                                                         ohe,
                                                         'c') is not None
     print("ok")

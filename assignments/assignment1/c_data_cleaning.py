@@ -223,10 +223,8 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
 
 
 if __name__ == "__main__":
-    df = pd.DataFrame({'a': [1, 2, 3, 4], 'b': [
-        True, True, False, None], 'c': [True, True, True, None]})
-    # df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
-    #                   True, True, False, None], 'c': ['one', 'two', np.nan, None]})
+    df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
+                      True, True, False, None], 'c': ['one', 'two', np.nan, None]})
     assert fix_numeric_wrong_values(
         df, 'a', WrongValueNumericRule.MUST_BE_LESS_THAN, 2) is not None
     assert fix_numeric_wrong_values(
@@ -244,5 +242,5 @@ if __name__ == "__main__":
     assert calculate_numeric_distance(
         df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.MANHATTAN) is not None
     assert calculate_binary_distance(
-        df.loc[:, 'b'], df.loc[:, 'c']) is not None
+        df.loc[:, 'b'], df.loc[:, 'b']) is not None
     print("ok")
