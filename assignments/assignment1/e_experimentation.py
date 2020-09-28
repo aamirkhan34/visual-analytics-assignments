@@ -212,15 +212,33 @@ def process_life_expectancy_dataset():
 
     # 5. Drop other columns except
     df_merged = df_merged[['country',
-                           'eight_regions', 'year', 'value', 'Latitude']]
-    # df_merged = pd.rename(df_merged, {"eight_regions"})
+                           'four_regions', 'year', 'value', 'Latitude']]
+    df_merged = df_merged.rename(
+        columns={"four_regions": "continent", "Latitude": "latitude"})
 
-    # 6.
+    # 6. latitude: numerical to categorical (north vs south)
+    # Ref: https://stackoverflow.com/questions/34630916/which-hemisphere-based-on-latitude-and-longitude
+    df_merged.loc[(df_merged["latitude"] >= 0.0), "latitude_cat"] = "north"
+    df_merged.loc[(df_merged["latitude"] < 0.0), "latitude_cat"] = "south"
+    df_merged.drop("latitude", axis=1, inplace=True)
+    df_merged = df_merged.rename(columns={"latitude_cat": "latitude"})
+    le = generate_label_encoder(df_merged["latitude"])
+    df_merged = replace_with_label_encoder(df_merged, "latitude", le)
+
+    # 7. continent column to a one_hot_encoder version of it
+    ohe = generate_one_hot_encoder(df_merged["continent"])
+    ohe_col_names = get_one_hot_encoding_column_names(
+        df_merged["continent"], "continent")
+    df_merged = replace_with_one_hot_encoder(
+        df_merged, "continent", ohe, ohe_col_names)
+
+    return df_merged
 
 
 if __name__ == "__main__":
-    # assert process_iris_dataset() is not None
-    # assert process_iris_dataset_again() is not None
-    # assert process_amazon_video_game_dataset() is not None
-    # assert process_amazon_video_game_dataset_again() is not None
+    assert process_iris_dataset() is not None
+    assert process_iris_dataset_again() is not None
+    assert process_amazon_video_game_dataset() is not None
+    assert process_amazon_video_game_dataset_again() is not None
     assert process_life_expectancy_dataset() is not None
+    print("ok")

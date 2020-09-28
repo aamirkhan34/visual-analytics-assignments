@@ -222,6 +222,11 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
     return dist_df['Binary_Distance']
 
 
+##############################################
+# Additional functions
+##############################################
+
+
 if __name__ == "__main__":
     df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
                       True, True, False, None], 'c': ['one', 'two', np.nan, None]})
