@@ -190,7 +190,7 @@ def calculate_numeric_distance(df_column_1: pd.Series, df_column_2: pd.Series, d
 
     df = pd.DataFrame(data={'Distance': [distance]})
 
-    return df
+    return df['Distance']
 
 
 def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) -> pd.Series:
@@ -219,7 +219,22 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
     distance = qr/(p+qr)
     dist_df = pd.DataFrame(data={'Binary_Distance': [distance]})
 
-    return dist_df
+    return dist_df['Binary_Distance']
+
+
+##############################################
+# Additional functions
+##############################################
+def fix_out_of_range_data_using_quantiles(df, column, range_min, range_max, min_quantile, max_quantile):
+    df_copy = df.copy()
+
+    quantile_min = df_copy[column].quantile(min_quantile)
+    quantile_max = df_copy[column].quantile(max_quantile)
+
+    df_copy.loc[(df_copy[column] < range_min), column] = quantile_min
+    df_copy.loc[(df_copy[column] > range_max), column] = quantile_max
+
+    return df_copy
 
 
 if __name__ == "__main__":

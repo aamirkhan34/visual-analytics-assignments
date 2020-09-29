@@ -120,6 +120,19 @@ def replace_one_hot_encoder_with_original_column(df: pd.DataFrame,
     return df_copy
 
 
+##############################################
+# Additional functions
+##############################################
+def get_one_hot_encoding_column_names(df_column: pd.Series, prefix: str) -> List[str]:
+    unique_values = list(set(df_column.tolist()))
+    names = []
+
+    for value in unique_values:
+        names.append(prefix+"_"+value)
+
+    return names
+
+
 if __name__ == "__main__":
     df = pd.DataFrame({'a': [1, 2, 3, 4], 'b': [True, True, False, False], 'c': [
                       'one', 'two', 'three', 'four']})
