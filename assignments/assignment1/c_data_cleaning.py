@@ -225,6 +225,16 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
 ##############################################
 # Additional functions
 ##############################################
+def fix_out_of_range_data_using_quantiles(df, column, range_min, range_max, min_quantile, max_quantile):
+    df_copy = df.copy()
+
+    quantile_min = df_copy[column].quantile(min_quantile)
+    quantile_max = df_copy[column].quantile(max_quantile)
+
+    df_copy.loc[(df_copy[column] < range_min), column] = quantile_min
+    df_copy.loc[(df_copy[column] > range_max), column] = quantile_max
+
+    return df_copy
 
 
 if __name__ == "__main__":

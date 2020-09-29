@@ -89,29 +89,17 @@ def process_iris_dataset_again() -> pd.DataFrame:
         df = replace_with_label_encoder(df, cc, le)
 
     # Replacing wrong petal_widths with mean
-    df = fix_numeric_wrong_values(
-        df, "petal_width", WrongValueNumericRule.MUST_BE_GREATER_THAN, 0)
-    df = fix_numeric_wrong_values(
-        df, "petal_width", WrongValueNumericRule.MUST_BE_LESS_THAN, 1)
+    # Cannot use WrongValueNumericRule because it doesn't include the extreme values
+    df.loc[((df["petal_width"] < 0.0) | (df["petal_width"] > 1.0)),
+           "petal_width"] = np.nan
     df["petal_width"].fillna(df["petal_width"].mean(), inplace=True)
 
     # Adding large_sepal_length
+    # Cannot use WrongValueNumericRule because it doesn't include the extreme values
     df.loc[(df["sepal_length"] > 5.0), "large_sepal_length"] = True
     df.loc[(df["sepal_length"] <= 5.0), "large_sepal_length"] = False
 
     return df
-
-
-def fix_out_of_range_data_using_quantiles(df, column, range_min, range_max, min_quantile, max_quantile):
-    df_copy = df.copy()
-
-    quantile_min = df_copy[column].quantile(min_quantile)
-    quantile_max = df_copy[column].quantile(max_quantile)
-
-    df_copy.loc[(df_copy[column] < range_min), column] = quantile_min
-    df_copy.loc[(df_copy[column] > range_max), column] = quantile_max
-
-    return df_copy
 
 
 def process_amazon_video_game_dataset():
