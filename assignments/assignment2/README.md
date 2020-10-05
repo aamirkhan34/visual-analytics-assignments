@@ -3,6 +3,9 @@
 ### First, be sure to read the main README.md for general information!
 ### Due date: 11:55PM of 16 of October. LATE SUBMISSIONS WILL NOT BE ACCEPTED.
 
+*Each of the tasks must be able to run in under 10 minutes in a Desktop machine with a Ryzen 5*.
+In case this is a problem for you, since tasks in this assignment uses code from assignment 1, feel free to remove some of the logic of your assignment1 code (without any penalty), do more preprocessing (remember the techniques seen in class) and change the parameters of the model used by the task. We won't be grading your exact resulting prediction or model score, but your logic/mindset while performing the tasks required from each task. 
+
 ## How to run the Python Code
 In case you are using pycharm, you just need to right click any python file and select `Run 'ScriptName.py'` to run it, however **if you are running the python file from a terminal**, run the following:
 * For windows, `cd` into the *assignments2* folder and run `set PYTHONPATH=..\..\ && python ScriptName.py`

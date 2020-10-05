@@ -23,6 +23,9 @@ focuses in results of the numerical type.
 ##############################################
 def simple_random_forest_regressor(X: pd.DataFrame, y: pd.Series) -> Dict:
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)
+
+    # If necessary, change the n_estimators, max_depth and max_leaf_nodes in the below method to accelerate the model training,
+    # but don't forget to comment why you did and any consequences of setting them!
     model = RandomForestRegressor()  # Now I am doing a regression!
     model.fit(X_train, y_train)
     y_predict = model.predict(X_test)  # Use this line to get the prediction from the model
@@ -61,18 +64,6 @@ def reusing_code_random_forest_on_iris() -> Dict:
     ohe = generate_one_hot_encoder(df['species'])
     df = replace_with_one_hot_encoder(df, 'species', ohe, list(ohe.get_feature_names()))
 
-    X, y = df.iloc[:, 1:], df.iloc[:, 0]
-    return simple_random_forest_regressor(X, y)
-
-
-def reusing_code_of_e_random_forest_on_iris() -> Dict:
-    """
-    Again I will run a regression on the iris dataset, but reusing the existing code from assignment1.
-    Use this to check how different the results are (score and predictions).
-    """
-    df = process_iris_dataset()
-    ohe = generate_one_hot_encoder(df['species'])
-    df = replace_with_one_hot_encoder(df, 'species', ohe, list(ohe.get_feature_names()))
     X, y = df.iloc[:, 1:], df.iloc[:, 0]
     return simple_random_forest_regressor(X, y)
 
@@ -156,7 +147,6 @@ def your_choice() -> Dict:
 if __name__ == "__main__":
     assert simple_random_forest_on_iris() is not None
     assert reusing_code_random_forest_on_iris() is not None
-    assert reusing_code_of_e_random_forest_on_iris() is not None
     assert random_forest_iris_dataset_again() is not None
     assert train_iris_dataset_again() is not None
     assert train_amazon_video_game() is not None

@@ -27,6 +27,9 @@ def simple_random_forest_classifier(X: pd.DataFrame, y: pd.Series) -> Dict:
     https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
     """
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30)
+
+    # If necessary, change the n_estimators, max_depth and max_leaf_nodes in the below method to accelerate the model training,
+    # but don't forget to comment why you did and any consequences of setting them!
     model = RandomForestClassifier()
     model.fit(X_train, y_train)
     y_predict = model.predict(X_test)  # Use this line to get the prediction from the model
@@ -63,19 +66,6 @@ def reusing_code_random_forest_on_iris() -> Dict:
     le = generate_label_encoder(y)
 
     # Be careful to return a copy of the input with the changes, instead of changing inplace the inputs here!
-    y_encoded = replace_with_label_encoder(y.toframe(), column='species', le=le)
-    return simple_random_forest_classifier(X, y_encoded['species'])
-
-
-def reusing_code_of_e_random_forest_on_iris() -> Dict:
-    """
-    Again I will run a classification on the iris dataset, but reusing
-    the existing code from assignment1. Use this to check how different the results are (score and
-    predictions).
-    """
-    df = process_iris_dataset()
-    X, y = df.iloc[:, :4], df.iloc[:, 4]
-    le = generate_label_encoder(y)
     y_encoded = replace_with_label_encoder(y.toframe(), column='species', le=le)
     return simple_random_forest_classifier(X, y_encoded['species'])
 
@@ -158,7 +148,6 @@ def your_choice() -> Dict:
 if __name__ == "__main__":
     assert simple_random_forest_on_iris() is not None
     assert reusing_code_random_forest_on_iris() is not None
-    assert reusing_code_of_e_random_forest_on_iris() is not None
     assert random_forest_iris_dataset_again() is not None
     assert train_iris_dataset_again() is not None
     assert train_amazon_video_game_again() is not None
