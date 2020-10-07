@@ -12,7 +12,7 @@ The below method should:
 The label_column may indicate categorical column as label, numerical column as label or it can also be None
 If categorical, run through these ML classifiers and return the one with highest accuracy: 
     DecisionTree, RandomForestClassifier, KNeighborsClassifier or a NaiveBayes
-If numerical, run through these ML regressors and return the one with lowest R^2: 
+If numerical, run through these ML regressors and return the one with highest R^2: 
     DecisionTree, RandomForestRegressor, KNeighborsRegressor or a Gaussian NaiveBayes
 If None, run through at least 4 of the ML clustering algorithms in https://scikit-learn.org/stable/modules/clustering.html
 and return the one with highest silhouette (https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html)

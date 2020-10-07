@@ -87,7 +87,7 @@ def decision_tree_regressor(X: pd.DataFrame, y: pd.Series) -> Dict:
     """
     Reimplement the method "simple_random_forest_regressor" but using
     https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.DecisionTreeRegressor.html
-    Optional: also optimise the parameters of the model to minimise the R^2 score
+    Optional: also optimise the parameters of the model to maximise the R^2 score
     :param X: Input dataframe
     :param y: Label data
     :return: model, score and prediction of the test set
@@ -98,7 +98,7 @@ def decision_tree_regressor(X: pd.DataFrame, y: pd.Series) -> Dict:
 def train_iris_dataset_again() -> Dict:
     """
     Run the result of the process iris again task of e_experimentation, but now using the
-    decision tree regressor AND random_forest regressor. Return the one with lowest R^2.
+    decision tree regressor AND random_forest regressor. Return the one with highest R^2.
     Use the same label column and one hot encoding logic as before.
     Discuss (1 sentence) what you found different between the results.
     Feel free to change your e_experimentation code (changes there will not be considered for grading
@@ -110,7 +110,7 @@ def train_iris_dataset_again() -> Dict:
 def train_amazon_video_game() -> Dict:
     """
     Run the result of the amazon dataset task of e_experimentation using the
-    decision tree regressor AND random_forest regressor. Return the one with lowest R^2.
+    decision tree regressor AND random_forest regressor. Return the one with highest R^2.
     The Label column is the count column
     Discuss (1 sentence) what you found different between the results.
     In one sentence, why is the score different (or the same) compared to the iris score?
