@@ -13,7 +13,12 @@ def read_dataset(path: Path) -> pd.DataFrame:
     Notice that this path is of type Path, which is a helper type from python to best handle
     the paths styles of different operating systems.
     """
-    pass
+    if str(path).endswith(".csv"):
+        df = pd.read_csv(path)
+    else:
+        raise ValueError("Invalid Filetype")
+
+    return df
 
 
 if __name__ == "__main__":
