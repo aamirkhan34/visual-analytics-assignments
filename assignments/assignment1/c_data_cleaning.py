@@ -50,7 +50,20 @@ def fix_numeric_wrong_values(df: pd.DataFrame,
     :param must_be_rule_optional_parameter: optional parameter for the "greater than" or "less than" cases
     :return: The dataset with fixed column
     """
-    pass
+    df_copy = df.copy()
+
+    if must_be_rule == WrongValueNumericRule.MUST_BE_LESS_THAN:
+        df_copy.loc[df_copy[column] >=
+                    must_be_rule_optional_parameter, column] = np.nan
+    elif must_be_rule == WrongValueNumericRule.MUST_BE_GREATER_THAN:
+        df_copy.loc[df_copy[column] <=
+                    must_be_rule_optional_parameter, column] = np.nan
+    elif must_be_rule == WrongValueNumericRule.MUST_BE_NEGATIVE:
+        df_copy.loc[df_copy[column] >= 0, column] = np.nan
+    elif must_be_rule == WrongValueNumericRule.MUST_BE_POSITIVE:
+        df_copy.loc[df_copy[column] < 0, column] = np.nan
+
+    return df_copy
 
 
 def fix_outliers(df: pd.DataFrame, column: str) -> pd.DataFrame:
@@ -66,7 +79,48 @@ def fix_outliers(df: pd.DataFrame, column: str) -> pd.DataFrame:
     :param column: the column to be investigated and fixed
     :return: The dataset with fixed column
     """
-    pass
+    numeric_columns = get_numeric_columns(df)
+    if column in numeric_columns:
+        df_copy = df.copy()
+        # Ref: https://app.pluralsight.com/guides/cleaning-up-data-from-outliers
+        # Finding outliers
+        quartile1 = df[column].quantile(0.25)
+        quartile3 = df[column].quantile(0.75)
+        inter_quartile_range = quartile3 - quartile1
+
+        df_copy["Is_Outlier"] = (df_copy[column] < (quartile1 - 1.5 * inter_quartile_range)
+                                 ) | (df_copy[column] > (quartile3 + 1.5 * inter_quartile_range))
+
+        # Fixing outliers - Flooring and Capping approach
+        quantile10 = df_copy[column].quantile(0.10)
+        quantile90 = df_copy[column].quantile(0.90)
+        df_copy.loc[((df_copy["Is_Outlier"] == True) & (
+            df_copy[column] < quantile10)), column] = quantile10
+        df_copy.loc[((df_copy["Is_Outlier"] == True) & (
+            df_copy[column] > quantile90)), column] = quantile90
+        df_copy.drop("Is_Outlier", axis=1, inplace=True)
+
+        return df_copy
+
+    print("Not a numeric column")
+    return df
+
+
+def fix_nan_by_column_type(df: pd.DataFrame, column: str) -> pd.DataFrame:
+    bin_cols = get_binary_columns(df)
+    num_cols = get_numeric_columns(df)
+    text_cols = df.select_dtypes(include='object')
+    datetime_cols = df.select_dtypes(include='datetime')
+
+    if any(column in cols for cols in [bin_cols, text_cols, datetime_cols]):
+        # Drop rows if column type is either of binary, text_categorical, or datetime
+        df = df[df[column].notna()]
+
+    elif column in num_cols:
+        # Fill nan with median values
+        df[column].fillna(df[column].median(), inplace=True)
+
+    return df
 
 
 def fix_nans(df: pd.DataFrame, column: str) -> pd.DataFrame:
@@ -79,7 +133,21 @@ def fix_nans(df: pd.DataFrame, column: str) -> pd.DataFrame:
     :param column: the column to be investigated and fixed
     :return: The fixed dataset
     """
-    pass
+    missing_values_percentage = (df[column].isna().sum() / len(df)) * 100
+    # Delete column if percentage of missing values is at least 50
+    if missing_values_percentage >= 50:
+        df.drop(column, axis=1, inplace=True)
+    else:
+        df = fix_nan_by_column_type(df, column)
+
+    return df
+
+
+def is_series_numeric(df_column: pd.Series) -> bool:
+    if df_column.dtype in ["int64", "float64"]:
+        return True
+
+    return False
 
 
 def normalize_column(df_column: pd.Series) -> pd.Series:
@@ -88,7 +156,13 @@ def normalize_column(df_column: pd.Series) -> pd.Series:
     :param df_column: Dataset's column
     :return: The column normalized
     """
-    pass
+    if is_series_numeric(df_column):
+        min_value = df_column.min()
+        max_value = df_column.max()
+        norm_data = (df_column - min_value) / (max_value - min_value)
+        return norm_data
+
+    return df_column
 
 
 def standardize_column(df_column: pd.Series) -> pd.Series:
@@ -97,7 +171,13 @@ def standardize_column(df_column: pd.Series) -> pd.Series:
     :param df_column: Dataset's column
     :return: The column standardized
     """
-    pass
+    if is_series_numeric(df_column):
+        mean_value = df_column.mean()
+        std_dev = df_column.std()
+        std_data = (df_column - mean_value) / std_dev
+        return std_data
+
+    return df_column
 
 
 def calculate_numeric_distance(df_column_1: pd.Series, df_column_2: pd.Series, distance_metric: DistanceMetric) -> pd.Series:
@@ -108,7 +188,20 @@ def calculate_numeric_distance(df_column_1: pd.Series, df_column_2: pd.Series, d
     :param distance_metric: One of DistanceMetric, and for each one you should implement its logic
     :return: A new 'column' with the distance between the two inputted columns
     """
-    pass
+    if distance_metric == DistanceMetric.EUCLIDEAN:
+        distance = np.linalg.norm(df_column_1 - df_column_2)
+
+    elif distance_metric == DistanceMetric.MANHATTAN:
+        abs_diff = np.absolute(df_column_1 - df_column_2)
+        distance = abs_diff.sum()
+
+    else:
+        print("Distance metric not supported")
+        distance = None
+
+    df = pd.DataFrame(data={'Distance': [distance]})
+
+    return df['Distance']
 
 
 def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) -> pd.Series:
@@ -119,20 +212,61 @@ def calculate_binary_distance(df_column_1: pd.Series, df_column_2: pd.Series) ->
     :param df_column_2: Dataset's column
     :return: A new 'column' with the distance between the two inputted columns
     """
-    pass
+    d = {"Col1": df_column_1.tolist(), "Col2": df_column_2.tolist()}
+    df = pd.DataFrame(data=d)
+
+    # Jaccard's distance
+    true_values = [True, 1]
+    false_values = [False, 0]
+    p_df = df[(df['Col1'].isin(true_values)) & (df['Col2'].isin(true_values))]
+
+    qr_df = df[((df['Col1'].isin(true_values)) &
+                (df['Col2'].isin(false_values)) | (df['Col1'].isin(false_values)) &
+                (df['Col2'].isin(true_values)))]
+
+    p = len(p_df)
+    qr = len(qr_df)
+
+    distance = qr/(p+qr)
+    dist_df = pd.DataFrame(data={'Binary_Distance': [distance]})
+
+    return dist_df['Binary_Distance']
+
+
+##############################################
+# Additional functions
+##############################################
+def fix_out_of_range_data_using_quantiles(df, column, range_min, range_max, min_quantile, max_quantile):
+    df_copy = df.copy()
+
+    quantile_min = df_copy[column].quantile(min_quantile)
+    quantile_max = df_copy[column].quantile(max_quantile)
+
+    df_copy.loc[(df_copy[column] < range_min), column] = quantile_min
+    df_copy.loc[(df_copy[column] > range_max), column] = quantile_max
+
+    return df_copy
 
 
 if __name__ == "__main__":
-    df = pd.DataFrame({'a':[1,2,3,None], 'b': [True, True, False, None], 'c': ['one', 'two', np.nan, None]})
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_LESS_THAN, 2) is not None
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_GREATER_THAN, 2) is not None
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_POSITIVE, 2) is not None
-    assert fix_numeric_wrong_values(df, 'a', WrongValueNumericRule.MUST_BE_NEGATIVE, 2) is not None
+    df = pd.DataFrame({'a': [1, 2, 3, None], 'b': [
+                      True, True, False, None], 'c': ['one', 'two', np.nan, None]})
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_LESS_THAN, 2) is not None
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_GREATER_THAN, 2) is not None
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_POSITIVE, 2) is not None
+    assert fix_numeric_wrong_values(
+        df, 'a', WrongValueNumericRule.MUST_BE_NEGATIVE, 2) is not None
     assert fix_outliers(df, 'c') is not None
     assert fix_nans(df, 'c') is not None
     assert normalize_column(df.loc[:, 'a']) is not None
     assert standardize_column(df.loc[:, 'a']) is not None
-    assert calculate_numeric_distance(df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.EUCLIDEAN) is not None
-    assert calculate_numeric_distance(df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.MANHATTAN) is not None
-    assert calculate_binary_distance(df.loc[:, 'b'], df.loc[:, 'b']) is not None
+    assert calculate_numeric_distance(
+        df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.EUCLIDEAN) is not None
+    assert calculate_numeric_distance(
+        df.loc[:, 'a'], df.loc[:, 'a'], DistanceMetric.MANHATTAN) is not None
+    assert calculate_binary_distance(
+        df.loc[:, 'b'], df.loc[:, 'b']) is not None
     print("ok")
