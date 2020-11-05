@@ -106,7 +106,12 @@ def matplotlib_bar_chart(x: np.array) -> Tuple:
     Create a matplotlib bar chart with the inputs. DO NOT PLOT IT!!
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
+    # Bar chart requires two inputs for both axes. Since only x is provided, I am taking y as the range of x values.
+    # Range starts from 0 and ends at a number that equals length of x array - 1
+    y = np.arange(start=0, stop=x.shape[0])
+    fig, ax = plt.subplots()
+    ax.bar(x, y)
+    return fig, ax
 
 
 def matplotlib_pie_chart(x: np.array) -> Tuple:
@@ -114,7 +119,9 @@ def matplotlib_pie_chart(x: np.array) -> Tuple:
     Create a matplotlib pie chart with the inputs. DO NOT PLOT IT!!
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
+    fig, ax = plt.subplots()
+    ax.pie(x)
+    return fig, ax
 
 
 def matplotlib_histogram(x: np.array, n_bins: int) -> Tuple:
@@ -123,7 +130,9 @@ def matplotlib_histogram(x: np.array, n_bins: int) -> Tuple:
     Return the fig and ax as was shown in matplotlib_line_example.
     Note that a histogram is the distribution of the data as a bar chart split in bins
     """
-    pass
+    fig, ax = plt.subplots()
+    ax.hist(x, n_bins)
+    return fig, ax
 
 
 def matplotlib_polar_chart(x: np.array, y: np.array) -> Tuple:
@@ -132,7 +141,10 @@ def matplotlib_polar_chart(x: np.array, y: np.array) -> Tuple:
     The y input is the same as the line chart, so you need to convert it to an angle.
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
+    angle = 2 * np.pi * y
+    fig, ax = plt.subplots(subplot_kw=dict(polar=True))
+    ax.plot(angle, x)
+    return fig, ax
 
 
 def matplotlib_heatmap_chart(matrix: np.array) -> Tuple:
@@ -141,7 +153,9 @@ def matplotlib_heatmap_chart(matrix: np.array) -> Tuple:
     The input is a 2D matrix (x, y). See example at the end of file.
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
+    fig, ax = plt.subplots()
+    ax.imshow(matrix)
+    return fig, ax
 
 
 def matplotlib_table(matrix: np.array) -> Tuple:
@@ -149,7 +163,10 @@ def matplotlib_table(matrix: np.array) -> Tuple:
     Create a matplotlib table with the input. DO NOT PLOT IT!!
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
+    fig, ax = plt.subplots()
+    # Setting the columns labels as range of values from 0 to number of columns in the matrix 
+    ax.table(cellText=matrix, colLabels=list(range(matrix.shape[1])), loc="center")
+    return fig, ax
 
 
 def matplotlib_composite_line_bar(x: np.array) -> Tuple:
@@ -159,7 +176,14 @@ def matplotlib_composite_line_bar(x: np.array) -> Tuple:
     DO NOT PLOT IT!!
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
+    y = np.arange(start=0, stop=x.shape[0])
+    fig, ax = plt.subplots()
+    # Plotting y as x because otherwise the graph looks very cluttered. Furthermore, y as x explains the graph better.
+    # Bar graphs works well when the x-axis is discrete. y is discrete whereas x is continuous. So, plotting y as axis will
+    # reduce the clutteriing.
+    ax.plot(y, x, color="green")
+    ax.bar(y, x)
+    return fig, ax
 
 
 def matplotlib_subgraphs(fig1, fig2, fig3, fig4) -> Tuple:
@@ -168,8 +192,8 @@ def matplotlib_subgraphs(fig1, fig2, fig3, fig4) -> Tuple:
     top-right, etc) has one of them, and output a single fig and ax with the inputs. DO NOT PLOT IT!!
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
-
+    # Not to be implemented
+    return None, None
 
 # There are many other possibilities. Please, do check the documentation and examples so you
 # may have a good breadth of tools for future work (in assignments, projects, and your own career)
@@ -283,18 +307,18 @@ if __name__ == "__main__":
     matplotlib_composite_line_bar(x)
     matplotlib_subgraphs(fig1, fig2, fig3, fig4)
 
-    df = pd.DataFrame(dict(x=x, y=y, z=x + y))
-    df_matrix = pd.DataFrame(matrix_2D, columns=[f'grade of class {x}' for x in range(10)], index=[f'professor {x}' for x in range(10)])
-    plotly_bar_chart(df)
-    plotly_pie_chart(df)
-    plotly_histogram(df, 5)
-    plotly_polar_chart(df)
-    plotly_heatmap_chart(df_matrix)
-    plotly_table(df_matrix)
-    plotly_contour_chart(df_matrix)
-    plotly_composite_line_bar(df)
-    plotly_subgraphs(pd.DataFrame(dict(x1=np.random.rand(50) * np.random.randint(-10, 10), y1=np.random.rand(50) * np.random.randint(-10, 10),
-                                       x2=np.random.rand(50) * np.random.randint(-10, 10), y2=np.random.rand(50) * np.random.randint(-10, 10),
-                                       x3=np.random.rand(50) * np.random.randint(-10, 10), y3=np.random.rand(50) * np.random.randint(-10, 10),
-                                       x4=np.random.rand(50) * np.random.randint(-10, 10), y4=np.random.rand(50) * np.random.randint(-10, 10),
-                                       )))
+    # df = pd.DataFrame(dict(x=x, y=y, z=x + y))
+    # df_matrix = pd.DataFrame(matrix_2D, columns=[f'grade of class {x}' for x in range(10)], index=[f'professor {x}' for x in range(10)])
+    # plotly_bar_chart(df)
+    # plotly_pie_chart(df)
+    # plotly_histogram(df, 5)
+    # plotly_polar_chart(df)
+    # plotly_heatmap_chart(df_matrix)
+    # plotly_table(df_matrix)
+    # plotly_contour_chart(df_matrix)
+    # plotly_composite_line_bar(df)
+    # plotly_subgraphs(pd.DataFrame(dict(x1=np.random.rand(50) * np.random.randint(-10, 10), y1=np.random.rand(50) * np.random.randint(-10, 10),
+    #                                    x2=np.random.rand(50) * np.random.randint(-10, 10), y2=np.random.rand(50) * np.random.randint(-10, 10),
+    #                                    x3=np.random.rand(50) * np.random.randint(-10, 10), y3=np.random.rand(50) * np.random.randint(-10, 10),
+    #                                    x4=np.random.rand(50) * np.random.randint(-10, 10), y4=np.random.rand(50) * np.random.randint(-10, 10),
+    #                                    )))
