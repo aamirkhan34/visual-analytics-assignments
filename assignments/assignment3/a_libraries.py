@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+from plotly.subplots import make_subplots
 
 
 ##############################################
@@ -206,7 +207,8 @@ def plotly_bar_chart(df: pd.DataFrame):
     Create a plotly bar chart with the inputs. DO NOT PLOT IT!!
     Return the fig only. Feel free to choose between px and go.
     """
-    pass
+    fig = px.bar(df, x="x", y="y")
+    return fig
 
 
 def plotly_pie_chart(df: pd.DataFrame):
@@ -215,7 +217,8 @@ def plotly_pie_chart(df: pd.DataFrame):
     Create a plotly pie chart with the inputs. DO NOT PLOT IT!!
     Return the fig only. Feel free to choose between px and go.
     """
-    pass
+    fig = px.pie(df, names="x", values="x")
+    return fig
 
 
 def plotly_histogram(df: pd.DataFrame, n_bins: int):
@@ -224,7 +227,8 @@ def plotly_histogram(df: pd.DataFrame, n_bins: int):
     Create a plotly histogram chart with the inputs. DO NOT PLOT IT!!
     Return the fig only. Feel free to choose between px and go.
     """
-    pass
+    fig = px.histogram(df, x="x")
+    return fig
 
 
 def plotly_polar_chart(df: pd.DataFrame):
@@ -234,7 +238,10 @@ def plotly_polar_chart(df: pd.DataFrame):
     The y input is the same as the line chart, so you need to convert it to an angle.
     Return the fig only. Feel free to choose between px and go.
     """
-    pass
+    df_copy = df.copy()
+    df_copy['angle'] = 2 * np.pi * df_copy['y']
+    fig = px.line_polar(df_copy, r="x", theta="angle")
+    return fig
 
 
 def plotly_heatmap_chart(df: pd.DataFrame):
@@ -243,7 +250,9 @@ def plotly_heatmap_chart(df: pd.DataFrame):
     Create a plotly heatmap chart with the inputs. DO NOT PLOT IT!!
     Return the fig only. Feel free to choose between px and go.
     """
-    pass
+    # Plotly automatically labels the heatmap using the input dataframe
+    fig = px.imshow(df)
+    return fig
 
 
 def plotly_table(df: pd.DataFrame):
@@ -253,7 +262,11 @@ def plotly_table(df: pd.DataFrame):
     Create a plotly table with the input. DO NOT PLOT IT!!
     Return the fig only. Feel free to choose between px and go.
     """
-    pass
+    table_data = [df[x] for x in list(df.columns)]
+    table_data.insert(0, df.index.to_list())
+    fig = go.Figure(data=[go.Table(header=dict(values=["professor"]+list(df.columns)),
+        cells=dict(values=table_data))])
+    return fig
 
 
 def plotly_contour_chart(df: pd.DataFrame):
@@ -264,7 +277,8 @@ def plotly_contour_chart(df: pd.DataFrame):
     DO NOT PLOT IT!!
     Return the fig only.
     """
-    pass
+    fig = px.density_contour(df)
+    return fig
 
 
 def plotly_composite_line_bar(df: pd.DataFrame):
@@ -274,7 +288,10 @@ def plotly_composite_line_bar(df: pd.DataFrame):
     with the inputs. DO NOT PLOT IT!!
     Return the fig and ax as was shown in matplotlib_line_example.
     """
-    pass
+    fig = plotly_bar_chart(df)
+    # Add line chart to bar chart
+    fig.add_trace(go.Scatter(x = df['x'], y = df['y']))
+    return fig
 
 
 def plotly_subgraphs(df: pd.DataFrame):
@@ -284,7 +301,16 @@ def plotly_subgraphs(df: pd.DataFrame):
     stacked area plots respectively) and place each of the at each quadrant (e.g. top-left,
     top-right, etc), and then output a single fig. DO NOT PLOT IT!!
     """
-    pass
+    fig = make_subplots(rows=2, cols=2, start_cell="top-left")
+    fig.add_trace(go.Scatter(x = df['x1'], y = df['y1']), row = 1, col = 1)
+    fig.add_trace(go.Scatter(x = df['x2'], y = df['y2'], mode="markers"), row = 1, col = 2)
+    fig.add_trace(go.Bar(x = df['x3'], y = df.index), row = 2, col = 1)
+    
+    trace1 = go.Scatter(x = df['x3'], y = df['y3'], stackgroup='one')
+    trace2 = go.Scatter(x = df['x4'], y = df['y4'], stackgroup='one')
+    fig.add_traces([trace1, trace2], rows=2, cols=2)
+    
+    return fig
 
 
 if __name__ == "__main__":
@@ -307,18 +333,18 @@ if __name__ == "__main__":
     matplotlib_composite_line_bar(x)
     matplotlib_subgraphs(fig1, fig2, fig3, fig4)
 
-    # df = pd.DataFrame(dict(x=x, y=y, z=x + y))
-    # df_matrix = pd.DataFrame(matrix_2D, columns=[f'grade of class {x}' for x in range(10)], index=[f'professor {x}' for x in range(10)])
-    # plotly_bar_chart(df)
-    # plotly_pie_chart(df)
-    # plotly_histogram(df, 5)
-    # plotly_polar_chart(df)
-    # plotly_heatmap_chart(df_matrix)
-    # plotly_table(df_matrix)
-    # plotly_contour_chart(df_matrix)
-    # plotly_composite_line_bar(df)
-    # plotly_subgraphs(pd.DataFrame(dict(x1=np.random.rand(50) * np.random.randint(-10, 10), y1=np.random.rand(50) * np.random.randint(-10, 10),
-    #                                    x2=np.random.rand(50) * np.random.randint(-10, 10), y2=np.random.rand(50) * np.random.randint(-10, 10),
-    #                                    x3=np.random.rand(50) * np.random.randint(-10, 10), y3=np.random.rand(50) * np.random.randint(-10, 10),
-    #                                    x4=np.random.rand(50) * np.random.randint(-10, 10), y4=np.random.rand(50) * np.random.randint(-10, 10),
-    #                                    )))
+    df = pd.DataFrame(dict(x=x, y=y, z=x + y))
+    df_matrix = pd.DataFrame(matrix_2D, columns=[f'grade of class {x}' for x in range(10)], index=[f'professor {x}' for x in range(10)])
+    plotly_bar_chart(df)
+    plotly_pie_chart(df)
+    plotly_histogram(df, 5)
+    plotly_polar_chart(df)
+    plotly_heatmap_chart(df_matrix)
+    plotly_table(df_matrix)
+    plotly_contour_chart(df_matrix)
+    plotly_composite_line_bar(df)
+    plotly_subgraphs(pd.DataFrame(dict(x1=np.random.rand(50) * np.random.randint(-10, 10), y1=np.random.rand(50) * np.random.randint(-10, 10),
+                                       x2=np.random.rand(50) * np.random.randint(-10, 10), y2=np.random.rand(50) * np.random.randint(-10, 10),
+                                       x3=np.random.rand(50) * np.random.randint(-10, 10), y3=np.random.rand(50) * np.random.randint(-10, 10),
+                                       x4=np.random.rand(50) * np.random.randint(-10, 10), y4=np.random.rand(50) * np.random.randint(-10, 10),
+                                       )))
