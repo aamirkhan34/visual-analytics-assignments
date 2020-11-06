@@ -173,7 +173,16 @@ def plotly_table():
     See https://plotly.com/python/table/ for documentation
     """
     model_data = your_choice()
-    return None
+    model_data["test_prediction"] = list(model_data["test_prediction"])
+    
+    df = pd.DataFrame(model_data["test_prediction"], columns=["test_prediction"])
+    for k,v in model_data.items():
+        if k != "test_prediction":
+            df[k] = str(v)
+
+    fig = a_libraries.plotly_table(df)
+
+    return fig
 
 
 def plotly_composite_line_bar():
@@ -213,10 +222,10 @@ if __name__ == "__main__":
     # fig_m_h, _ = matplotlib_histogram()
     # fig_m_hc, _ = matplotlib_heatmap_chart()
 
-    fig_p_s = plotly_scatter_plot_chart()
-    fig_p_bpc = plotly_bar_plot_chart()
-    fig_p_psc = plotly_polar_scatterplot_chart()
-    # fig_p_t = plotly_table()
+    # fig_p_s = plotly_scatter_plot_chart()
+    # fig_p_bpc = plotly_bar_plot_chart()
+    # fig_p_psc = plotly_polar_scatterplot_chart()
+    fig_p_t = plotly_table()
     # fig_p_clb = plotly_composite_line_bar()
     # fig_p_map = plotly_map()
     # fig_p_treemap = plotly_map()

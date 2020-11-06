@@ -265,7 +265,7 @@ def plotly_table(df: pd.DataFrame):
     """
     table_data = [df[x] for x in list(df.columns)]
     table_data.insert(0, df.index.to_list())
-    fig = go.Figure(data=[go.Table(header=dict(values=["professor"]+list(df.columns)),
+    fig = go.Figure(data=[go.Table(header=dict(values=["index"]+list(df.columns)),
         cells=dict(values=table_data))])
     return fig
 
