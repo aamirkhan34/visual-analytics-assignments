@@ -109,9 +109,10 @@ def matplotlib_bar_chart(x: np.array) -> Tuple:
     """
     # Bar chart requires two inputs for both axes. Since only x is provided, I am taking y as the range of x values.
     # Range starts from 0 and ends at a number that equals length of x array - 1
+    # plotting y as x since x represents values and y represents the index
     y = np.arange(start=0, stop=x.shape[0])
     fig, ax = plt.subplots()
-    ax.bar(x, y)
+    ax.bar(y, x)
     return fig, ax
 
 
