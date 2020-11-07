@@ -1,4 +1,5 @@
 from typing import Tuple
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,6 +8,13 @@ import plotly.graph_objects as go
 import plotly.express as px
 from matplotlib.widgets import Button, Slider
 
+import sys
+if "/home/aamir/dal/sem3/va/assignments/asakhan" not in sys.path:
+    sys.path.append("/home/aamir/dal/sem3/va/assignments/asakhan")
+
+from assignments.assignment3 import a_libraries, b_simple_usages
+from assignments.assignment2.c_clustering import simple_k_means
+from assignments.assignment1.d_data_encoding import fix_outliers, fix_nans, normalize_column
 
 ###############
 # Interactivity in visualizations is challenging due to limitations and clunkiness of libraries.
@@ -177,7 +185,58 @@ def matplotlib_interactivity():
     Make either a slider, a dropdown or several buttons and make so each option gives me a different visualization from
     the matplotlib figures of b_simple_usages. Return just the resulting fig as is done in plotly_slider_example.
     """
-    return None
+    # As per the discussion on Teams, we can use the data from a_libraries.py for different plots. 
+    # We are not using b_simple_usages functions because changing figures on click in matplotlib doesn't work
+    # That is why we have to plot/draw figures on click.
+    x = np.random.rand(50) * np.random.randint(-10, 10)
+    y_arr = np.arange(start=0, stop=x.shape[0])
+    matrix_2D = np.random.rand(10, 10) * np.random.randint(-10, 10)
+
+    fig, ax = a_libraries.matplotlib_bar_chart(x)
+    plt.subplots_adjust(bottom=0.2)
+
+    class Index(object):
+
+        def bar(self, event):
+            ax.clear()
+            ax.bar(y_arr, x)
+            plt.draw()
+
+        def pie(self, event):
+            ax.clear()
+            ax.pie(x)
+            plt.draw()
+
+        def histogram(self, event):
+            ax.clear()
+            ax.hist(x, 10)
+            plt.draw()
+
+        def heatmap(self, event):
+            ax.clear()
+            ax.imshow(matrix_2D)
+            plt.draw()
+
+    callback = Index()
+
+    ax_bar = plt.axes([0.48, 0.05, 0.1, 0.075])
+    ax_pie = plt.axes([0.59, 0.05, 0.1, 0.075])
+    ax_hist = plt.axes([0.7, 0.05, 0.1, 0.075])
+    ax_heat = plt.axes([0.81, 0.05, 0.1, 0.075])
+
+    bbar = Button(ax_bar, 'Bar')
+    bbar.on_clicked(callback.bar)
+
+    bpie = Button(ax_pie, 'Pie')
+    bpie.on_clicked(callback.pie)
+
+    bhist = Button(ax_hist, 'Hist')
+    bhist.on_clicked(callback.histogram)
+
+    bheat = Button(ax_heat, 'Heat')
+    bheat.on_clicked(callback.heatmap)
+
+    return fig
 
 
 def matplotlib_cluster_interactivity():
@@ -186,7 +245,38 @@ def matplotlib_cluster_interactivity():
     Use iris dataset (just numeric columns) and k-means (feel free to reuse as/c_clustering if you wish).
     The slider (or dropdown) should range from 2 to 10. Return just the resulting fig.
     """
-    return None
+    # I am plotting clusters with x as sepal_width and y as sepal_length. 
+    # Clusters will be represented by different colors
+    df = pd.read_csv(Path('..', '..', 'iris.csv'))
+    for c in list(df.columns):
+        df = fix_outliers(df, c)
+        df = fix_nans(df, c)
+        df[c] = normalize_column(df[c])
+
+
+    # By default the number of clusters is 2
+    model_data = simple_k_means(df.iloc[:, :4], n_clusters=2)
+
+    fig, ax = plt.subplots()
+    ax.scatter(x=df['sepal_width'], y=df['sepal_length'], c=model_data['model'].labels_, cmap='gist_rainbow')
+    plt.subplots_adjust(bottom=0.2)
+
+    class Index(object):
+
+        def update_cluster_graph(self, value):
+            model_data = simple_k_means(df.iloc[:, :4], n_clusters=value)
+            ax.clear()
+            ax.scatter(x=df['sepal_width'], y=df['sepal_length'], c=model_data['model'].labels_, cmap='gist_rainbow')
+            plt.draw()
+
+    callback = Index()
+
+    ax_clusters_slider = plt.axes([0.55, 0.1, 0.35, 0.03])
+
+    slider = Slider(ax_clusters_slider, 'n_clusters', 2, 10, valstep=1)
+    slider.on_changed(callback.update_cluster_graph)
+
+    return fig
 
 
 def plotly_interactivity():
