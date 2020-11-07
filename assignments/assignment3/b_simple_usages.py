@@ -191,8 +191,46 @@ def plotly_composite_line_bar():
     there are 5 line charts of 5 countries (you choose which) and one bar chart on the background with the total value of all 5
     countries added up.
     """
-    return None
+    df = process_life_expectancy_dataset("regression")
 
+    # Countries selected: India, Pakistan, United States, Canada, Brazil
+    # Since the dataset is already one hot encoded, I will be restructuring it with new column called country
+    country_columns = ["x0_Canada", "x0_United States", "x0_India", "x0_Pakistan","x0_Brazil"]
+
+    # Selecting the above countries
+    selected_df = df[(df[country_columns]).any(1)]
+
+    # Filtering the required columns
+    selected_df = selected_df[["year", "value"] + country_columns]
+
+    # Restructuring columns
+    for country in country_columns:
+        selected_df.loc[selected_df[country] == 1, "country"] = country.lstrip("x0_")
+
+    selected_df = selected_df[["country", "year", "value"]]
+
+    # Bar chart - sum of all the country values by year
+    bar_df = selected_df[["year", "value"]].groupby(["year"]).sum().reset_index()
+    fig = px.bar(bar_df, x="year", y="value")
+
+    # Line Charts - 5 line charts for each country by year
+    for country in set(selected_df['country'].tolist()):
+        country_df = selected_df[selected_df['country'] == country]
+        fig.add_trace(go.Scatter(x = country_df['year'], y = country_df['value'], name=country))
+
+    return fig
+
+def convert_ohe_columns_into_one(xdf, prefix, new_column_name):
+    ohe_columns = [col for col in xdf.columns if col.startswith(prefix+"_")]
+
+    # Adding new column
+    for ohe_col in ohe_columns:
+        xdf.loc[xdf[ohe_col] == 1, new_column_name] = ohe_col.lstrip(prefix+"_")
+
+    # Remove ohe columns
+    xdf.drop(ohe_columns, axis=1, inplace=True)
+
+    return xdf
 
 def plotly_map():
     """
@@ -200,7 +238,18 @@ def plotly_map():
     Examples: https://plotly.com/python/maps/, https://plotly.com/python/choropleth-maps/#using-builtin-country-and-state-geometries
     Use the value from the dataset of a specific year (e.g. 1900) to show as the color in the map
     """
-    return None
+    df = process_life_expectancy_dataset("regression")
+
+    selected_df = convert_ohe_columns_into_one(df, "x0", "country")
+
+    # Choosing year 1800 for map plots
+    selected_df = selected_df[selected_df["year"] == "1800"]
+
+    # Plotting on Map
+    fig = px.choropleth(selected_df, locations="country", locationmode="country names", color="value",
+                        hover_name="country", color_continuous_scale = px.colors.sequential.Plasma)
+
+    return fig
 
 
 def plotly_tree_map():
@@ -208,8 +257,20 @@ def plotly_tree_map():
     Use plotly's treemap to plot any data returned from any of a1/e_experimentation or a2 tasks
     Documentation: https://plotly.com/python/treemaps/
     """
-    return None
+    df = process_life_expectancy_dataset("regression")
 
+    # Drop latitude and year column
+    df.drop(["latitude", "year"], axis=1, inplace=True)
+
+    df = convert_ohe_columns_into_one(df, "x0", "country")
+    df = convert_ohe_columns_into_one(df, "continent", "continent")
+
+    tree_df = df.groupby(["continent", "country", "value"]).sum().reset_index()
+
+    # Plotting Treemap with Continent as parent, country as child, and values representing total size country-wise
+    fig = px.treemap(tree_df, path=['continent', 'country'], values='value')
+
+    return fig
 
 if __name__ == "__main__":
     # Here are examples of how to run each method
@@ -217,18 +278,18 @@ if __name__ == "__main__":
     # and work when submitting, since when we run your code, all methods will be run like this.
     # If these lines below returns errors when running, your file will be considered to not
     # run, and graded accordingly.
-    # fig_m_bc, _ = matplotlib_bar_chart()
-    # fig_m_pc, _ = matplotlib_pie_chart()
-    # fig_m_h, _ = matplotlib_histogram()
-    # fig_m_hc, _ = matplotlib_heatmap_chart()
+    fig_m_bc, _ = matplotlib_bar_chart()
+    fig_m_pc, _ = matplotlib_pie_chart()
+    fig_m_h, _ = matplotlib_histogram()
+    fig_m_hc, _ = matplotlib_heatmap_chart()
 
-    # fig_p_s = plotly_scatter_plot_chart()
-    # fig_p_bpc = plotly_bar_plot_chart()
-    # fig_p_psc = plotly_polar_scatterplot_chart()
+    fig_p_s = plotly_scatter_plot_chart()
+    fig_p_bpc = plotly_bar_plot_chart()
+    fig_p_psc = plotly_polar_scatterplot_chart()
     fig_p_t = plotly_table()
-    # fig_p_clb = plotly_composite_line_bar()
-    # fig_p_map = plotly_map()
-    # fig_p_treemap = plotly_map()
+    fig_p_clb = plotly_composite_line_bar()
+    fig_p_map = plotly_map()
+    fig_p_treemap = plotly_tree_map()
 
     # Uncomment the below lines to test your code
     # When submitting, leave the code below commented!!!
