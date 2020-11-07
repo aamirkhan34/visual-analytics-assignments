@@ -1,4 +1,5 @@
 from typing import Tuple
+from pathlib import Path
 
 import dash
 import matplotlib.pyplot as plt
@@ -12,6 +13,12 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
+import sys
+if "/home/aamir/dal/sem3/va/assignments/asakhan" not in sys.path:
+    sys.path.append("/home/aamir/dal/sem3/va/assignments/asakhan")
+
+from assignments.assignment1.e_experimentation import process_life_expectancy_dataset
+from assignments.assignment3 import a_libraries, b_simple_usages
 
 ##############################################
 # Now let's use dash, a library built on top of flask (a backend framework for python) and plotly
@@ -138,6 +145,22 @@ def dash_callback_example():
 
     return app
 
+def get_all_modified_dataframes():
+    iris_df = pd.read_csv(Path('..', '..', 'iris.csv'))
+    ratings_vg_df = pd.read_csv(Path('..', '..', 'ratings_Video_Games.csv'))
+    ley_df = process_life_expectancy_dataset("regression")
+
+    # Modify iris
+    iris_df.drop("species", axis=1, inplace=True)
+
+    # Modify Ratings data
+    # Keeping only a single column - "review" - because it is enogh for 3 chart options
+    ratings_vg_df = ratings_vg_df[["review"]]
+
+    # Modify Life Expectancy years dataset - Keeping two columns - ""
+    ley_df = ley_df[["year", "value"]]
+
+    return iris_df, ratings_vg_df, ley_df
 
 ##############################################
 # Implement all the below methods
@@ -160,7 +183,47 @@ def dash_task():
         c. In this visualization, if I select data in the visualization, update some text in the page (can be a new bootstrap card with text inside)
             with the number of values selected. (see https://dash.plotly.com/interactive-graphing for examples)
     """
-    return None
+    app = dash.Dash(__name__)
+
+    # This is requirement 2 part d
+    iris_df, ratings_vg_df, ley_df = get_all_modified_dataframes()
+
+    # Default dataset -iris
+    def_col_options = []
+    for col in iris_df.columns:
+        def_col_options.append({"label": col, "value": col})
+    
+    app.layout = dbc.Container([
+        html.Title("My Dashboard"),
+        html.H1(children='My Dashboard'),
+        html.Div(children='Dash: A web application framework for Python.'),
+        html.Hr(),
+        dbc.FormGroup([
+            dbc.Label("Choose dataset"),
+            dcc.Dropdown(id="dropdown1", value=1, options=[{"label": "Iris", "value": 1},
+                                                        {"label": "Video Game Ratings", "value": 2},
+                                                        {"label": "Life Expectancy Years", "value": 3}]),
+            dbc.Label("Choose x column"),
+            dcc.Dropdown(id="dropdown2", value=2, options=def_col_options),
+            dbc.Label("Choose y column"),
+            dcc.Dropdown(id="dropdown3", value=3, options=def_col_options),
+            dbc.Label("Choose graph"),
+            dcc.Dropdown(id="dropdown4", value=4, options=[{"label": "Bar", "value": 1},
+                                                        {"label": "Pie", "value": 2},
+                                                        {"label": "Histogram", "value": 3}]),
+
+        ]),
+        dbc.FormGroup([
+            dbc.Label(id='slider-value'),
+            dcc.Slider(id="slider", min=1, max=10, step=0.5, value=1),
+        ]),
+        dbc.Button('Run Callback', id='example-button', color='primary', style={'margin-bottom': '1em'}, block=True),
+        dbc.Row([
+            dbc.Col(dcc.Graph(id='example-graph')),  # Not including fig here because it will be generated with the callback
+        ])
+    ])
+
+    return app
 
 
 if __name__ == "__main__":
@@ -169,9 +232,9 @@ if __name__ == "__main__":
     # and work when submitting, since when we run your code, all methods will be run like this.
     # If these lines below returns errors when running, your file will be considered to not
     # run, and graded accordingly.
-    app_ce = dash_callback_example()
-    app_b = dash_with_bootstrap_example()
-    app_c = dash_callback_example()
+    # app_ce = dash_simple_example()
+    # app_b = dash_with_bootstrap_example()
+    # app_c = dash_callback_example()
     app_t = dash_task()
 
     # Uncomment the below lines to test your code
@@ -179,4 +242,4 @@ if __name__ == "__main__":
     # app_ce.run_server(debug=True)
     # app_b.run_server(debug=True)
     # app_c.run_server(debug=True)
-    # app_t.run_server(debug=True)
+    app_t.run_server(debug=True)
