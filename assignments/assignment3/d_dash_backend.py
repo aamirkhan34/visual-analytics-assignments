@@ -1,4 +1,6 @@
+import json
 from typing import Tuple
+from pathlib import Path
 
 import dash
 import matplotlib.pyplot as plt
@@ -12,6 +14,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
+from assignments.assignment1.e_experimentation import process_life_expectancy_dataset
+from assignments.assignment3 import a_libraries, b_simple_usages
 
 ##############################################
 # Now let's use dash, a library built on top of flask (a backend framework for python) and plotly
@@ -138,11 +142,154 @@ def dash_callback_example():
 
     return app
 
+def get_all_modified_dataframes():
+    iris_df = pd.read_csv(Path('..', '..', 'iris.csv'))
+    ratings_vg_df = pd.read_csv(Path('..', '..', 'ratings_Video_Games.csv'))
+    ley_df = process_life_expectancy_dataset("regression")
+
+    # Modify iris
+    iris_df.drop("species", axis=1, inplace=True)
+
+    # Modify Ratings data
+    # Keeping only a single column - "review" - because it is enogh for 3 chart options
+    ratings_vg_df = ratings_vg_df[["review"]]
+
+    # Modify Life Expectancy years dataset - Keeping two columns - ""
+    ley_df = ley_df[["year", "value"]]
+
+    return iris_df, ratings_vg_df, ley_df
 
 ##############################################
 # Implement all the below methods
 # Use the documentation of the libraries in case you need help to understand the required methods
 ##############################################
+
+def get_vis1_layout(default_cols, default_df):
+    vis1_layout = html.Div([
+                    dbc.FormGroup([
+                        dbc.Label("Choose dataset"),
+                        dcc.Dropdown(id="dropdown1", value=1, options=[{"label": "Iris", "value": "iris"},
+                                                                    {"label": "Video Game Ratings", "value": "ratings"},
+                                                                    {"label": "Life Expectancy Years", "value": "ley"}]),
+                        dbc.Label("Choose x column"),
+                        dcc.Dropdown(id="dropdown2", value=2, options=default_cols),
+                        dbc.Label("Choose y column"),
+                        dcc.Dropdown(id="dropdown3", value=3, options=default_cols),
+                        dbc.Label("Choose graph"),
+                        dcc.Dropdown(id="dropdown4", value=4, options=[{"label": "Bar", "value": "bar"},
+                                                                    {"label": "Pie", "value": "pie"},
+                                                                    {"label": "Histogram", "value": "histogram"}]),
+                        html.Br()
+                    ]),
+                    dbc.Button('Update Graph', id='button1', color='primary', style={'margin-bottom': '1em'}, block=True),
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                            [
+                                html.H4("Number of rows", className="card-title"),
+                                html.P(str(len(default_df)), id="n_rows", className="card-text"),
+                            ]
+                            )
+                        ],
+                        style={"width": "18rem"},
+                    ),
+                    dbc.Row([
+                        dbc.Col(dcc.Graph(id='viz1')),  # Not including fig here because it will be generated with the callback
+                    ])
+                ])
+
+    return vis1_layout
+
+def get_vis2_layout():
+    vis2_layout = html.Div([
+                    dbc.FormGroup([
+                        dbc.Label("Choose visualization"),
+                        dcc.Dropdown(id="dropdown5", value=1, options=[{"label": "Scatter", "value": "scatter"},
+                                                                    {"label": "Bar", "value": "bar"},
+                                                                    {"label": "Map", "value": "map"}]),
+                        html.Br(),
+                        dbc.Button('Show', id='button2', color='primary', style={'margin-bottom': '1em'}, block=True),
+                    ]),
+                    dbc.Row([
+                        dbc.Col(dcc.Graph(id='viz2')),
+                    ]),
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                            [
+                                html.H4("Clicked data", className="card-title"),
+                                html.P("", id="selected_data", className="card-text")
+                            ]
+                            )
+                        ],
+                        style={"width": "18rem"},
+                    )
+                ])
+    
+    return vis2_layout
+
+def get_dropdown_of_column_values(xdf, new_options):
+    for col in xdf.columns:
+        new_options.append({"label": col, "value": col})
+
+    return new_options
+
+def get_columns_by_dataset(name, iris_df, ratings_vg_df, ley_df):
+    new_options = []
+
+    if name == "iris":
+        new_options = get_dropdown_of_column_values(iris_df, new_options)
+
+    elif name == "ratings":
+        new_options = get_dropdown_of_column_values(ratings_vg_df, new_options)
+
+    elif name == "ley":
+        new_options = get_dropdown_of_column_values(ley_df, new_options)
+    
+    return new_options
+
+def get_graph_by_graph_type(xdf, graph_type, xfig):
+    graph_function_mapping = {"bar": a_libraries.plotly_bar_chart, "pie": a_libraries.plotly_pie_chart,
+                                "histogram": a_libraries.plotly_histogram}
+
+    if graph_type == "histogram":
+        # Default 10 bins
+        xfig = graph_function_mapping[graph_type](xdf, 10)
+    else:
+        xfig = graph_function_mapping[graph_type](xdf)
+
+    return xfig
+                                
+
+def get_graph_by_options(n_clicks, dataset, x, y, graph_type, iris_df, ratings_vg_df, ley_df):
+    fig = None
+
+    if dataset == "iris":
+        iris_df_copy = iris_df.copy()
+        iris_df_copy['x'] = iris_df_copy[x]
+        iris_df_copy['y'] = iris_df_copy[y]
+        fig = get_graph_by_graph_type(iris_df_copy, graph_type, fig)
+
+    elif dataset == "ratings":
+        ratings_vg_df_copy = ratings_vg_df.copy()
+        ratings_vg_df_copy['x'] = ratings_vg_df_copy[x]
+        ratings_vg_df_copy['y'] = ratings_vg_df_copy[y]
+        fig = get_graph_by_graph_type(ratings_vg_df_copy, graph_type, fig)
+
+    elif dataset == "ley":
+        ley_df_copy = ley_df.copy()
+        ley_df_copy['x'] = ley_df_copy[x]
+        ley_df_copy['y'] = ley_df_copy[y]
+        fig = get_graph_by_graph_type(ley_df_copy, graph_type, fig)
+
+    return fig
+
+def get_precomputed_graph_by_options(precomputed_graph_type):
+    graph_function_mapping = {"scatter": b_simple_usages.plotly_scatter_plot_chart, "bar": b_simple_usages.plotly_bar_plot_chart,
+                                "map": b_simple_usages.plotly_map}
+
+    return graph_function_mapping[precomputed_graph_type]()
+
 def dash_task():
     """
     There is only only one task to do, a web app with:
@@ -160,7 +307,97 @@ def dash_task():
         c. In this visualization, if I select data in the visualization, update some text in the page (can be a new bootstrap card with text inside)
             with the number of values selected. (see https://dash.plotly.com/interactive-graphing for examples)
     """
-    return None
+    app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+    # This is requirement 2 part d
+    iris_df, ratings_vg_df, ley_df = get_all_modified_dataframes()
+
+    # Default dataset -iris
+    def_col_options = []
+    def_col_options = get_dropdown_of_column_values(iris_df, def_col_options)
+    
+    app.layout = dbc.Container([
+        # Req. 1
+        html.Title("My Dashboard"),
+        html.H1(children='My Dashboard'),
+        html.Div(children='Assignment 3 - Part d'),
+        html.Hr(),
+        dcc.Tabs([
+            dcc.Tab(label='Visualization 1', children = [
+                get_vis1_layout(def_col_options, iris_df)
+            ]),
+            dcc.Tab(label='Visualization 2', children = [
+                get_vis2_layout()
+            ])
+        ])
+    ])
+
+    # Callback for columns updating (Req. 2 - a,b,c)
+    @app.callback(
+        dash.dependencies.Output('dropdown2', 'options'),
+        dash.dependencies.Output('dropdown3', 'options'),
+        [dash.dependencies.Input('dropdown1', 'value')]
+    )
+    def update_columns_dropdown(name):
+        options = get_columns_by_dataset(name, iris_df, ratings_vg_df, ley_df)
+        return options, options
+
+    # Callback to display number of rows on a bootstrap card (Req. 4)
+    @app.callback(
+        dash.dependencies.Output('n_rows', 'children'),
+        [dash.dependencies.Input('dropdown1', 'value')]
+    )
+    def update_number_of_rows(name):
+        if name == "iris":
+            return len(iris_df)
+
+        elif name == "ratings":
+            return len(ratings_vg_df)
+
+        elif name == "ley":
+            return len(ley_df)
+
+    # Callback to do the real-time calculated visualization (Req. 2)
+    @app.callback(
+        dash.dependencies.Output('viz1', 'figure'),
+        [Input('button1', 'n_clicks')],
+        [State('dropdown1', 'value'),
+         State('dropdown2', 'value'),
+         State('dropdown3', 'value'),
+         State('dropdown4', 'value')]
+    )
+    def update_visualization1(n_clicks, dataset, x, y, graph_type):
+        if n_clicks:
+            fig = get_graph_by_options(n_clicks, dataset, x, y, graph_type, iris_df, ratings_vg_df, ley_df)
+            return fig
+
+        return {}
+
+    # Callback to do the visualization 2 (Req. 5)
+    @app.callback(
+        dash.dependencies.Output('viz2', 'figure'),
+        [Input('button2', 'n_clicks')],
+        [State('dropdown5', 'value')]
+    )
+    def update_visualization2(n_clicks, precomputed_graph_type):
+        if n_clicks:
+            fig = get_precomputed_graph_by_options(precomputed_graph_type)
+            return fig
+
+        return {}
+
+    # Callback to do the interactive data display (Req. 5c)
+    @app.callback(
+        dash.dependencies.Output('selected_data', 'children'),
+        [dash.dependencies.Input('viz2', 'clickData')]
+    )
+    def display_selected_data(selected_data):
+        if selected_data:
+            return json.dumps(selected_data, indent=2)
+        
+        return {}
+
+    return app
 
 
 if __name__ == "__main__":
@@ -169,7 +406,7 @@ if __name__ == "__main__":
     # and work when submitting, since when we run your code, all methods will be run like this.
     # If these lines below returns errors when running, your file will be considered to not
     # run, and graded accordingly.
-    app_ce = dash_callback_example()
+    app_ce = dash_simple_example()
     app_b = dash_with_bootstrap_example()
     app_c = dash_callback_example()
     app_t = dash_task()
