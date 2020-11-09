@@ -164,7 +164,33 @@ def plotly_polar_scatterplot_chart():
     Use these two values to figure out the theta to plot values as a compass (example: https://plotly.com/python/polar-chart/).
     Each point should be one country and the radius should be thd value from the dataset (add up all years and feel free to ignore everything else)
     """
-    return None
+    ley_df = process_life_expectancy_dataset("regression")
+    geo_df = pd.read_csv(Path('..', '..', 'geography.csv'))
+
+    ley_df = convert_ohe_columns_into_one(ley_df, "x0", "country")
+
+    # Group by country and sum value across all the years
+    ley_df = ley_df[["country", "value"]].groupby(["country"]).sum().reset_index()
+    ley_df.head()
+
+    # Merge latitude and logitude column to processed ley dataframe
+    ley_df = pd.merge(ley_df, geo_df[["name", "Latitude", "Longitude"]], left_on="country", right_on="name")
+    ley_df.drop("name", axis=1, inplace=True)
+
+    # Latitude, Longitude to cartesian coordiantes
+    # Ref: https://stackoverflow.com/questions/1185408/converting-from-longitude-latitude-to-cartesian-coordinates
+    EARTH_RADIUS = 6371
+    ley_df['x'] = EARTH_RADIUS * np.cos(ley_df["Latitude"]) * np.cos(ley_df["Longitude"])
+    ley_df['y'] = EARTH_RADIUS * np.cos(ley_df["Latitude"]) * np.sin(ley_df["Longitude"])
+
+    # Calculating theta from cartesian coordinates
+    # Ref: https://www.engineeringtoolbox.com/converting-cartesian-polar-coordinates-d_1347.html
+    ley_df["theta"] = np.arctan2(ley_df["y"], ley_df["x"])
+
+    # Plotting on polar coordinates
+    fig = px.scatter_polar(ley_df, r="value", theta="theta", color="country")
+
+    return fig
 
 
 def plotly_table():

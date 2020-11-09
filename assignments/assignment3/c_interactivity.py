@@ -278,13 +278,67 @@ def matplotlib_cluster_interactivity():
 
     return fig
 
+def format_plotly_data_for_update(fig_dict):
+    data = fig_dict["data"]
+    # First row
+    formatted_data = {k:[v] for k, v in data[0].items()}
+    
+    # Append rows from second position if mutiple data
+    if len(data) > 1:
+        for d in data[1:]:
+            for k, v in d.items():
+                formatted_data[k].append(v)
+
+    return formatted_data
 
 def plotly_interactivity():
     """
     Do a plotly graph with all plotly 6 figs from b_simple_usages, and make 6 buttons (one for each fig).
     Change the displayed graph depending on which button I click. Return just the resulting fig.
     """
-    return None
+    # Default plot
+    fig = b_simple_usages.plotly_scatter_plot_chart()
+
+    buttons = [
+        dict(
+            label="scatter",
+            method="update",
+            args=[format_plotly_data_for_update(b_simple_usages.plotly_scatter_plot_chart().to_dict())],  
+        ), dict(
+            label="bar",
+            method="update",
+            args=[format_plotly_data_for_update(b_simple_usages.plotly_bar_plot_chart().to_dict())],  
+        ), dict(
+            label="polar",
+            method="update",
+            args=[format_plotly_data_for_update(b_simple_usages.plotly_polar_scatterplot_chart().to_dict())],  
+        ), dict(
+            label="table",
+            method="update",
+            args=[format_plotly_data_for_update(b_simple_usages.plotly_table().to_dict())],  
+        ), dict(
+            label="composite",
+            method="update",
+            args=[format_plotly_data_for_update(b_simple_usages.plotly_composite_line_bar().to_dict())],  
+        ), dict(
+            label="map",
+            method="update",
+            args=[format_plotly_data_for_update(b_simple_usages.plotly_map().to_dict())],
+        )
+    ]
+
+    # Add dropdown
+    fig.update_layout(
+        updatemenus=[
+            dict(type="buttons",
+                    direction="left",
+                    buttons=buttons,
+                    pad={"r": 10, "t": 10}, showactive=True, x=0.11, xanchor="left", y=1.1, yanchor="top"
+                    ),
+        ]
+    )
+
+    return fig
 
 
 if __name__ == "__main__":
