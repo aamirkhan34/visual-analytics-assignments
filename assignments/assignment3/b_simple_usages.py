@@ -8,14 +8,9 @@ import plotly.express as px
 
 from pathlib import Path
 
-import sys
-if "/home/aamir/dal/sem3/va/assignments/asakhan" not in sys.path:
-    sys.path.append("/home/aamir/dal/sem3/va/assignments/asakhan")
-
 from assignments.assignment1.a_load_file import read_dataset
 from assignments.assignment1.b_data_profile import *
-from assignments.assignment1.d_data_encoding import generate_label_encoder, replace_with_label_encoder, fix_outliers, fix_nans, normalize_column, generate_one_hot_encoder, replace_with_one_hot_encoder
-from assignments.assignment1.e_experimentation import process_iris_dataset, process_iris_dataset_again, process_amazon_video_game_dataset_again, process_life_expectancy_dataset, move_target_col_to_end
+from assignments.assignment1.e_experimentation import process_life_expectancy_dataset
 
 from assignments.assignment2.c_clustering import cluster_iris_dataset_again
 from assignments.assignment2.a_classification import your_choice

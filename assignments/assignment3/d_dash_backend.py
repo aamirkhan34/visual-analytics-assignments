@@ -14,10 +14,6 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-import sys
-if "/home/aamir/dal/sem3/va/assignments/asakhan" not in sys.path:
-    sys.path.append("/home/aamir/dal/sem3/va/assignments/asakhan")
-
 from assignments.assignment1.e_experimentation import process_life_expectancy_dataset
 from assignments.assignment3 import a_libraries, b_simple_usages
 

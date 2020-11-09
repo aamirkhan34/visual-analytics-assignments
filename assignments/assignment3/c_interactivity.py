@@ -8,10 +8,6 @@ import plotly.graph_objects as go
 import plotly.express as px
 from matplotlib.widgets import Button, Slider
 
-import sys
-if "/home/aamir/dal/sem3/va/assignments/asakhan" not in sys.path:
-    sys.path.append("/home/aamir/dal/sem3/va/assignments/asakhan")
-
 from assignments.assignment3 import a_libraries, b_simple_usages
 from assignments.assignment2.c_clustering import simple_k_means
 from assignments.assignment1.d_data_encoding import fix_outliers, fix_nans, normalize_column
