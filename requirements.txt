@@ -4,7 +4,7 @@ plotly==4.11.0
 matplotlib==3.2.0
 pandas_profiling==2.8.0
 scikit_learn==0.23.2
-dash==1.16.3
+dash==2.15.0
 dash_bootstrap_components==0.10.7
 dash_core_components==1.12.1
 dash_html_components==1.1.1
